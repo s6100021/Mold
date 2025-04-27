@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>حساب كميات الخلطة</title>
+    <style>
+        body { font-family: Arial; text-align: center; margin-top: 50px; background-color: #f2f2f2; }
+        input, button { padding: 10px; font-size: 18px; margin: 10px; }
+        .result { margin-top: 20px; font-size: 20px; }
+    </style>
+</head>
+<body>
+
+<h1>حساب كميات الخلطة</h1>
+
+<label>أدخل حجم القالب (مل):</label><br>
+<input type="number" id="volume" placeholder="مثلاً 308"><br>
+<button onclick="calculate()">احسب</button>
+
+<div class="result" id="result"></div>
+
+<script>
+function calculate() {
+    var volume = document.getElementById("volume").value;
+    if(volume <= 0){
+        alert("من فضلك أدخل حجم صحيح.");
+        return;
+    }
+    var ratio = volume / 300;
+    var gypsum = 280 * ratio;
+    var cement = 26 * ratio;
+    var water = 244 * ratio;
+
+    document.getElementById("result").innerHTML = `
+        <p>كمية الجبس: ${gypsum.toFixed(2)} جرام</p>
+        <p>كمية الأسمنت: ${cement.toFixed(2)} جرام</p>
+        <p>كمية الماء: ${water.toFixed(2)} مل</p>
+    `;
+}
+</script>
+
+</body>
+</html>
