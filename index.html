@@ -1,223 +1,245 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <title>برنامج حساب كميات الخلطة</title>
-    <style>
-        body {
-            font-family: 'Cairo', sans-serif;
-            background: linear-gradient(to bottom right, #e0f7fa, #b2ebf2);
-            margin: 0;
-            padding: 50px 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            align-items: center;
-            min-height: 100vh;
-        }
-        .container {
-            background-color: #ffffff;
-            padding: 60px;
-            border-radius: 20px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-            text-align: center;
-            width: 600px;
-        }
-        h1 {
-            color: #00796b;
-            margin-bottom: 40px;
-            font-size: 46px;
-        }
-        label {
-            font-size: 32px;
-            color: #004d40;
-        }
-        input {
-            padding: 20px;
-            font-size: 30px;
-            width: 90%;
-            margin-top: 20px;
-            margin-bottom: 30px;
-            border-radius: 10px;
-            border: 2px solid #009688;
-        }
-        .buttons {
-            margin-top: 20px;
-        }
-        button {
-            padding: 20px 50px;
-            font-size: 32px;
-            background-color: #00796b;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            margin: 10px;
-        }
-        button:hover {
-            background-color: #004d40;
-        }
-        .result, .total {
-            margin-top: 40px;
-            font-size: 34px;
-            color: #00695c;
-            background-color: #f1f1f1;
-            padding: 35px;
-            border-radius: 15px;
-            box-shadow: 0px 0px 10px #aaa;
-            border: 3px solid #4caf50;
-        }
-        .total {
-            font-size: 36px;
-            color: #d32f2f;
-            background-color: #e8f5e9;
-        }
-        .visitor-counter {
-            margin-top: 30px;
-            font-size: 28px;
-            color: #333;
-            background-color: #ffffff;
-            padding: 15px;
-            border-radius: 15px;
-            border: 2px solid #4caf50;
-            box-shadow: 0px 0px 8px #aaa;
-            width: 300px;
-            text-align: center;
-        }
-        .update-version {
-            margin-top: 15px;
-            font-size: 24px;
-            color: #555;
-            background-color: #e0f2f1;
-            padding: 10px 20px;
-            border-radius: 12px;
-            border: 1px solid #26a69a;
-            box-shadow: 0px 0px 5px #aaa;
-            text-align: center;
-        }
-        .logo {
-            width: 120px;
-            margin-bottom: 20px;
-            animation: fadeInDown 1.5s ease;
-        }
-        @keyframes fadeInDown {
-            0% {
-                opacity: 0;
-                transform: translateY(-50px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        .trust-message {
-            margin-top: 30px;
-            font-size: 32px;
-            color: #2e7d32;
-            background-color: #e8f5e9;
-            padding: 20px;
-            border-radius: 15px;
-            border: 2px dashed #66bb6a;
-            box-shadow: 0px 0px 8px #aaa;
-            width: 90%;
-            text-align: center;
-            display: none;
-            animation: fadeInUp 1s ease;
-        }
-        @keyframes fadeInUp {
-            0% {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>برنامج حساب كميات الخلطة</title>
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: linear-gradient(to bottom right, #e0f7fa, #b2ebf2);
+      margin: 0;
+      padding: 50px 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      min-height: 100vh;
+      transition: background 0.5s, color 0.5s;
+    }
+    .container {
+      background-color: #ffffff;
+      padding: 60px;
+      border-radius: 20px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+      text-align: center;
+      width: 600px;
+      transition: background 0.5s, color 0.5s;
+    }
+    h1 {
+      color: #00796b;
+      margin-bottom: 40px;
+      font-size: 46px;
+    }
+    label {
+      font-size: 32px;
+      color: #004d40;
+    }
+    input {
+      padding: 20px;
+      font-size: 30px;
+      width: 90%;
+      margin-top: 20px;
+      margin-bottom: 30px;
+      border-radius: 10px;
+      border: 2px solid #009688;
+      transition: background 0.5s, color 0.5s;
+    }
+    .buttons {
+      margin-top: 20px;
+    }
+    button {
+      padding: 20px 50px;
+      font-size: 32px;
+      background-color: #00796b;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      margin: 10px;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background-color: #004d40;
+    }
+    .result, .total {
+      margin-top: 40px;
+      font-size: 34px;
+      color: #00695c;
+      background-color: #f1f1f1;
+      padding: 35px;
+      border-radius: 15px;
+      box-shadow: 0px 0px 10px #aaa;
+      border: 3px solid #4caf50;
+      opacity: 0;
+      transform: scale(0.8);
+      animation: fadeInZoom 0.8s forwards;
+      animation-delay: 0.3s;
+    }
+    .total {
+      font-size: 36px;
+      color: #d32f2f;
+      background-color: #e8f5e9;
+    }
+    @keyframes fadeInZoom {
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+    .visitor-counter {
+      margin-top: 30px;
+      font-size: 28px;
+      color: #333;
+      background-color: #ffffff;
+      padding: 15px;
+      border-radius: 15px;
+      border: 2px solid #4caf50;
+      box-shadow: 0px 0px 8px #aaa;
+      width: 300px;
+      text-align: center;
+    }
+    .update-version {
+      margin-top: 15px;
+      font-size: 24px;
+      color: #555;
+      background-color: #e0f2f1;
+      padding: 10px 20px;
+      border-radius: 12px;
+      border: 1px solid #26a69a;
+      box-shadow: 0px 0px 5px #aaa;
+      text-align: center;
+    }
+    .logo {
+      width: 120px;
+      margin-bottom: 20px;
+      animation: fadeInDown 1.5s ease;
+    }
+    @keyframes fadeInDown {
+      0% {
+        opacity: 0;
+        transform: translateY(-50px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .trust-message {
+      margin-top: 30px;
+      font-size: 32px;
+      color: #2e7d32;
+      background-color: #e8f5e9;
+      padding: 20px;
+      border-radius: 15px;
+      border: 2px dashed #66bb6a;
+      box-shadow: 0px 0px 8px #aaa;
+      width: 90%;
+      text-align: center;
+      display: none;
+    }
+    .dark-mode {
+      background: linear-gradient(to bottom right, #212121, #424242);
+      color: #eee;
+    }
+    .dark-mode .container {
+      background-color: #333;
+    }
+    .dark-mode input {
+      background-color: #555;
+      color: #fff;
+      border-color: #66bb6a;
+    }
+    .toggle-theme {
+      margin-top: 20px;
+      background-color: #ffa000;
+    }
+  </style>
 </head>
 <body>
 
 <div class="container">
-    <img src="logo.png" alt="شعار الموقع" class="logo">
-    <h1>برنامج حساب كميات الخلطة</h1>
+  <img src="logo.png" alt="شعار الموقع" class="logo">
+  <h1>برنامج حساب كميات الخلطة</h1>
 
-    <label>أدخل حجم القالب (مل):</label><br>
-    <input type="number" id="volume" placeholder="مثلاً 308"><br>
+  <label>أدخل حجم القالب (مل):</label><br>
+  <input type="number" id="volume" placeholder="مثلاً 308"><br>
 
-    <div class="buttons">
-        <button onclick="calculate()">احسب</button>
-        <button onclick="clearFields()">تفريغ</button>
-    </div>
+  <div class="buttons">
+    <button onclick="calculate()">احسب</button>
+    <button onclick="clearFields()">تفريغ</button>
+    <button class="toggle-theme" onclick="toggleTheme()">تغيير الوضع</button>
+  </div>
 
-    <div class="result" id="result"></div>
-    <div class="total" id="total"></div>
-    <div class="trust-message" id="trustMessage">صوب وتوكل على الله</div>
+  <div class="result" id="result"></div>
+  <div class="total" id="total"></div>
+  <div class="trust-message" id="trustMessage">صوب وتوكل على الله</div>
 </div>
 
 <div class="visitor-counter" id="visitorCounter"></div>
-<div class="update-version">الإصدار: 2.7</div>
+<div class="update-version">الإصدار: 2.8</div>
 
 <script>
 function calculate() {
-    var volume = document.getElementById("volume").value;
-    if(volume <= 0){
-        alert("من فضلك أدخل حجم صحيح.");
-        return;
-    }
-    var ratio = volume / 300;
-    var gypsum = 280 * ratio;
-    var cement = 26 * ratio;
-    var waterMl = 244 * ratio;
-    var waterGrams = waterMl;
+  var volume = document.getElementById("volume").value;
+  if(volume <= 0){
+    alert("من فضلك أدخل حجم صحيح.");
+    return;
+  }
+  var ratio = volume / 300;
+  var gypsum = 280 * ratio;
+  var cement = 26 * ratio;
+  var waterMl = 244 * ratio;
+  var waterGrams = waterMl;
+  var totalWeight = gypsum + cement + waterGrams;
 
-    var totalWeight = gypsum + cement + waterGrams;
+  document.getElementById("result").innerHTML = `
+    <p><strong>كمية الجبس:</strong> ${gypsum.toFixed(2)} جرام</p>
+    <p><strong>كمية الأسمنت:</strong> ${cement.toFixed(2)} جرام</p>
+    <p><strong>كمية الماء:</strong> ${waterGrams.toFixed(2)} جرام</p>
+  `;
 
-    document.getElementById("result").innerHTML = `
-        <p><strong>كمية الجبس:</strong> ${gypsum.toFixed(2)} جرام</p>
-        <p><strong>كمية الأسمنت:</strong> ${cement.toFixed(2)} جرام</p>
-        <p><strong>كمية الماء:</strong> ${waterGrams.toFixed(2)} جرام</p>
-    `;
+  document.getElementById("total").innerHTML = `
+    <strong>المجموع الكلي:</strong> ${totalWeight.toFixed(2)} جرام
+  `;
 
-    document.getElementById("total").innerHTML = `
-        <strong>المجموع الكلي:</strong> ${totalWeight.toFixed(2)} جرام
-    `;
+  var phrases = [
+    "صب وتوكل على الله",
+    "أبشر، الأمور طيبة",
+    "لا تخاف، شغلك مضبوط",
+    "توكل على الله وأبدأ",
+    "نتيجتك ممتازة، شد حيلك",
+    "موفق بإذن الله"
+  ];
+  var randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
+  document.getElementById("trustMessage").innerHTML = randomPhrase;
+  document.getElementById("trustMessage").style.display = "block";
 
-    // مصفوفة العبارات المتغيرة
-    var phrases = [
-        "صب وتوكل على الله",
-        "أبشر، الأمور طيبة",
-        "لا تخاف، شغلك مضبوط",
-        "توكل على الله وأبدأ",
-        "نتيجتك ممتازة، شد حيلك",
-        "موفق بإذن الله"
-    ];
-
-    // اختيار عبارة عشوائية
-    var randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
-
-    document.getElementById("trustMessage").innerHTML = randomPhrase;
-    document.getElementById("trustMessage").style.display = "block";
+  // إعادة تفعيل حركة الأنيميشن للنتائج
+  document.getElementById("result").style.animation = "fadeInZoom 0.8s forwards";
+  document.getElementById("total").style.animation = "fadeInZoom 0.8s forwards";
 }
 
 function clearFields() {
-    document.getElementById("volume").value = "";
-    document.getElementById("result").innerHTML = "";
-    document.getElementById("total").innerHTML = "";
-    document.getElementById("trustMessage").style.display = "none";
+  document.getElementById("volume").value = "";
+  document.getElementById("result").innerHTML = "";
+  document.getElementById("total").innerHTML = "";
+  document.getElementById("trustMessage").style.display = "none";
+}
+
+function toggleTheme() {
+  document.body.classList.toggle('dark-mode');
 }
 
 function updateVisitorCounter() {
-    if (localStorage.getItem('visitorCount')) {
-        var count = parseInt(localStorage.getItem('visitorCount'));
-        count += 1;
-        localStorage.setItem('visitorCount', count);
-    } else {
-        localStorage.setItem('visitorCount', 1);
-    }
-
-    document.getElementById('visitorCounter').innerHTML = 
-        "عدد زياراتك للصفحة: " + localStorage.getItem('visitorCount');
+  if (localStorage.getItem('visitorCount')) {
+    var count = parseInt(localStorage.getItem('visitorCount'));
+    count += 1;
+    localStorage.setItem('visitorCount', count);
+  } else {
+    localStorage.setItem('visitorCount', 1);
+  }
+  document.getElementById('visitorCounter').innerHTML =
+    "عدد زياراتك للصفحة: " + localStorage.getItem('visitorCount');
 }
 
 updateVisitorCounter();
