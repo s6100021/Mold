@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <title>برنامج حساب كميات الخلطة</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <style>
     body {
       font-family: 'Cairo', sans-serif;
@@ -16,6 +15,29 @@
       align-items: center;
       min-height: 100vh;
       transition: background 0.5s, color 0.5s;
+      position: relative;
+    }
+
+    .language-switcher {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .language-switcher button {
+      padding: 8px 12px;
+      font-size: 16px;
+      margin-left: 5px;
+      background-color: #009688;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .language-switcher button:hover {
+      background-color: #00796b;
     }
 
     .container {
@@ -69,6 +91,10 @@
 
     button:hover {
       background-color: #004d40;
+    }
+
+    .toggle-theme {
+      background-color: #ffa000;
     }
 
     .result, .total {
@@ -125,23 +151,6 @@
       text-align: center;
     }
 
-    .logo {
-      width: 80px;
-      margin-bottom: 10px;
-      animation: fadeInDown 1.5s ease;
-    }
-
-    @keyframes fadeInDown {
-      0% {
-        opacity: 0;
-        transform: translateY(-30px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
     .trust-message {
       margin-top: 20px;
       font-size: 20px;
@@ -177,17 +186,22 @@
       border-color: #66bb6a;
     }
 
-    .toggle-theme {
-      margin-top: 10px;
-      background-color: #ffa000;
+    .dark-mode .trust-message {
+      background-color: #2e7d32;
+      color: white;
+      border-color: #81c784;
     }
   </style>
 </head>
 
 <body>
 
+<div class="language-switcher">
+  <button onclick="setLanguage('ar')">العربية</button>
+  <button onclick="setLanguage('en')">English</button>
+</div>
+
 <div class="container">
-  <img src="logo.png" alt="شعار الموقع" class="logo">
   <h1>برنامج حساب كميات الخلطة</h1>
 
   <label>أدخل حجم القالب (مل):</label><br>
@@ -232,7 +246,7 @@ function calculate() {
   `;
 
   var phrases = [
-    "صوب وتوكل على الله",
+    "صب وتوكل على الله",
     "أبشر، الأمور طيبة",
     "لا تخاف، شغلك مضبوط",
     "توكل على الله وأبدأ",
@@ -243,7 +257,6 @@ function calculate() {
   document.getElementById("trustMessage").innerHTML = randomPhrase;
   document.getElementById("trustMessage").style.display = "block";
 
-  // إعادة تفعيل حركة الأنيميشن للنتائج
   document.getElementById("result").style.animation = "fadeInZoom 0.8s forwards";
   document.getElementById("total").style.animation = "fadeInZoom 0.8s forwards";
 }
@@ -257,6 +270,26 @@ function clearFields() {
 
 function toggleTheme() {
   document.body.classList.toggle('dark-mode');
+}
+
+function setLanguage(lang) {
+  if (lang === 'ar') {
+    document.querySelector('h1').innerText = "برنامج حساب كميات الخلطة";
+    document.querySelector('label').innerText = "أدخل حجم القالب (مل):";
+    document.querySelector('.buttons button:nth-child(1)').innerText = "احسب";
+    document.querySelector('.buttons button:nth-child(2)').innerText = "تفريغ";
+    document.querySelector('.buttons button:nth-child(3)').innerText = "تغيير الوضع";
+    document.querySelector('.update-version').innerText = "الإصدار: 2.8";
+    document.body.dir = "rtl";
+  } else if (lang === 'en') {
+    document.querySelector('h1').innerText = "Mixture Quantity Calculator";
+    document.querySelector('label').innerText = "Enter mold volume (ml):";
+    document.querySelector('.buttons button:nth-child(1)').innerText = "Calculate";
+    document.querySelector('.buttons button:nth-child(2)').innerText = "Clear";
+    document.querySelector('.buttons button:nth-child(3)').innerText = "Toggle Theme";
+    document.querySelector('.update-version').innerText = "Version: 2.8";
+    document.body.dir = "ltr";
+  }
 }
 
 function updateVisitorCounter() {
