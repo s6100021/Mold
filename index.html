@@ -10,8 +10,9 @@
             margin: 0;
             padding: 50px 0;
             display: flex;
-            justify-content: center;
-            align-items: flex-start;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
             min-height: 100vh;
         }
         .container {
@@ -40,6 +41,9 @@
             border-radius: 10px;
             border: 2px solid #009688;
         }
+        .buttons {
+            margin-top: 20px;
+        }
         button {
             padding: 20px 50px;
             font-size: 32px;
@@ -48,7 +52,7 @@
             border: none;
             border-radius: 10px;
             cursor: pointer;
-            margin-top: 20px;
+            margin: 10px;
         }
         button:hover {
             background-color: #004d40;
@@ -61,12 +65,24 @@
             padding: 35px;
             border-radius: 15px;
             box-shadow: 0px 0px 10px #aaa;
-            border: 3px solid #4caf50; /* هنا أضفنا الإطار الأخضر */
+            border: 3px solid #4caf50;
         }
         .total {
             font-size: 36px;
             color: #d32f2f;
-            background-color: #e8f5e9; /* أخضر فاتح */
+            background-color: #e8f5e9;
+        }
+        .visitor-counter {
+            margin-top: 30px;
+            font-size: 28px;
+            color: #333;
+            background-color: #ffffff;
+            padding: 15px;
+            border-radius: 15px;
+            border: 2px solid #4caf50;
+            box-shadow: 0px 0px 8px #aaa;
+            width: 300px;
+            text-align: center;
         }
     </style>
 </head>
@@ -77,11 +93,17 @@
 
     <label>أدخل حجم القالب (مل):</label><br>
     <input type="number" id="volume" placeholder="مثلاً 308"><br>
-    <button onclick="calculate()">احسب</button>
+
+    <div class="buttons">
+        <button onclick="calculate()">احسب</button>
+        <button onclick="clearFields()">تفريغ</button>
+    </div>
 
     <div class="result" id="result"></div>
     <div class="total" id="total"></div>
 </div>
+
+<div class="visitor-counter" id="visitorCounter"></div>
 
 <script>
 function calculate() {
@@ -94,7 +116,7 @@ function calculate() {
     var gypsum = 280 * ratio;
     var cement = 26 * ratio;
     var waterMl = 244 * ratio;
-    var waterGrams = waterMl; // الماء بالجرام
+    var waterGrams = waterMl; 
 
     var totalWeight = gypsum + cement + waterGrams;
 
@@ -108,6 +130,29 @@ function calculate() {
         <strong>المجموع الكلي:</strong> ${totalWeight.toFixed(2)} جرام
     `;
 }
+
+// زر تفريغ الحقول والنتائج
+function clearFields() {
+    document.getElementById("volume").value = "";
+    document.getElementById("result").innerHTML = "";
+    document.getElementById("total").innerHTML = "";
+}
+
+// عداد الزوار
+function updateVisitorCounter() {
+    if (localStorage.getItem('visitorCount')) {
+        var count = parseInt(localStorage.getItem('visitorCount'));
+        count += 1;
+        localStorage.setItem('visitorCount', count);
+    } else {
+        localStorage.setItem('visitorCount', 1);
+    }
+
+    document.getElementById('visitorCounter').innerHTML = 
+        "عدد زياراتك للصفحة: " + localStorage.getItem('visitorCount');
+}
+
+updateVisitorCounter();
 </script>
 
 </body>
