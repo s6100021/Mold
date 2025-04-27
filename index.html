@@ -5,34 +5,48 @@
     <title>برنامج حساب كميات الخلطة</title>
     <style>
         body {
-            font-family: 'Tahoma', sans-serif;
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(to bottom right, #e0f7fa, #b2ebf2);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
             text-align: center;
-            background-color: #e0f7fa;
-            margin-top: 50px;
+            width: 500px;
         }
         h1 {
             color: #00796b;
-            font-size: 36px;
+            margin-bottom: 40px;
+            font-size: 42px;
         }
         label {
-            font-size: 24px;
+            font-size: 30px;
             color: #004d40;
         }
         input {
-            padding: 12px;
-            font-size: 24px;
-            width: 250px;
-            margin: 10px;
-            border-radius: 8px;
-            border: 1px solid #009688;
+            padding: 18px;
+            font-size: 28px;
+            width: 85%;
+            margin-top: 15px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            border: 2px solid #009688;
         }
         button {
-            padding: 14px 30px;
-            font-size: 24px;
+            padding: 18px 50px;
+            font-size: 30px;
             background-color: #00796b;
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             cursor: pointer;
             margin-top: 20px;
         }
@@ -40,26 +54,27 @@
             background-color: #004d40;
         }
         .result {
-            margin-top: 30px;
-            font-size: 26px;
+            margin-top: 40px;
+            font-size: 32px;
             color: #00695c;
-            background-color: #ffffff;
-            display: inline-block;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px #aaa;
+            background-color: #f1f1f1;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 0px 8px #aaa;
         }
     </style>
 </head>
 <body>
 
-<h1>برنامج حساب كميات الخلطة</h1>
+<div class="container">
+    <h1>برنامج حساب كميات الخلطة</h1>
 
-<label>أدخل حجم القالب (مل):</label><br>
-<input type="number" id="volume" placeholder="مثلاً 308"><br>
-<button onclick="calculate()">احسب</button>
+    <label>أدخل حجم القالب (مل):</label><br>
+    <input type="number" id="volume" placeholder="مثلاً 308"><br>
+    <button onclick="calculate()">احسب</button>
 
-<div class="result" id="result"></div>
+    <div class="result" id="result"></div>
+</div>
 
 <script>
 function calculate() {
