@@ -99,6 +99,30 @@
                 transform: translateY(0);
             }
         }
+        .trust-message {
+            margin-top: 30px;
+            font-size: 32px;
+            color: #2e7d32;
+            background-color: #e8f5e9;
+            padding: 20px;
+            border-radius: 15px;
+            border: 2px dashed #66bb6a;
+            box-shadow: 0px 0px 8px #aaa;
+            width: 90%;
+            text-align: center;
+            display: none;
+            animation: fadeInUp 1s ease;
+        }
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
     </style>
 </head>
 <body>
@@ -117,6 +141,7 @@
 
     <div class="result" id="result"></div>
     <div class="total" id="total"></div>
+    <div class="trust-message" id="trustMessage">صوب وتوكل على الله</div>
 </div>
 
 <div class="visitor-counter" id="visitorCounter"></div>
@@ -132,7 +157,7 @@ function calculate() {
     var gypsum = 280 * ratio;
     var cement = 26 * ratio;
     var waterMl = 244 * ratio;
-    var waterGrams = waterMl; 
+    var waterGrams = waterMl;
 
     var totalWeight = gypsum + cement + waterGrams;
 
@@ -145,16 +170,17 @@ function calculate() {
     document.getElementById("total").innerHTML = `
         <strong>المجموع الكلي:</strong> ${totalWeight.toFixed(2)} جرام
     `;
+
+    document.getElementById("trustMessage").style.display = "block"; // اظهار المربع الجديد
 }
 
-// زر تفريغ الحقول والنتائج
 function clearFields() {
     document.getElementById("volume").value = "";
     document.getElementById("result").innerHTML = "";
     document.getElementById("total").innerHTML = "";
+    document.getElementById("trustMessage").style.display = "none"; // اخفاء عند التفريغ
 }
 
-// عداد الزوار
 function updateVisitorCounter() {
     if (localStorage.getItem('visitorCount')) {
         var count = parseInt(localStorage.getItem('visitorCount'));
