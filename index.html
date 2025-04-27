@@ -53,7 +53,7 @@
         button:hover {
             background-color: #004d40;
         }
-        .result {
+        .result, .total {
             margin-top: 40px;
             font-size: 34px;
             color: #00695c;
@@ -61,15 +61,12 @@
             padding: 35px;
             border-radius: 15px;
             box-shadow: 0px 0px 10px #aaa;
+            border: 3px solid #4caf50; /* هنا أضفنا الإطار الأخضر */
         }
         .total {
-            margin-top: 20px;
             font-size: 36px;
             color: #d32f2f;
-            background-color: #ffe0b2;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0px 0px 10px #ccc;
+            background-color: #e8f5e9; /* أخضر فاتح */
         }
     </style>
 </head>
@@ -97,7 +94,7 @@ function calculate() {
     var gypsum = 280 * ratio;
     var cement = 26 * ratio;
     var waterMl = 244 * ratio;
-    var waterGrams = waterMl; // الماء بالجرام تقريبًا نفس الرقم بالمل
+    var waterGrams = waterMl; // الماء بالجرام
 
     var totalWeight = gypsum + cement + waterGrams;
 
