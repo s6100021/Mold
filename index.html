@@ -25,23 +25,23 @@
         margin: 10px;
         font-size: 18px;
         border-radius: 10px;
-        border: none; /* إزالة الحدود */
+        border: none;
     }
     button {
         cursor: pointer;
         font-weight: bold;
-        background-color: #4CAF50; /* اللون الأخضر للأزرار */
+        background-color: #4CAF50;
         color: white;
         transition: 0.3s;
     }
     button:hover {
-        background-color: #45a049; /* التغيير عند التحويم */
+        background-color: #45a049;
     }
     #results, #total {
         margin-top: 20px;
-        background: #ffffff; /* تغيير الخلفية إلى الأبيض */
+        background: #ffffff;
         padding: 15px;
-        border: none; /* إزالة الإطار الأخضر */
+        border: none;
         border-radius: 10px;
         display: none;
     }
@@ -60,22 +60,14 @@
     .share-btn:hover {
         background-color: #1ebe57;
     }
-    #randomMessage {
+    #randomMessage, #duaaBox {
         display: none;
         margin-top: 15px;
         font-size: 18px;
+        font-weight: bold;
     }
     #footer {
         margin-top: 30px;
-    }
-    #duaaBox {
-        margin-top: 20px;
-        padding: 15px;
-        background-color: #f0f8ff;
-        border-radius: 10px;
-        font-size: 18px;
-        font-weight: bold;
-        display: none;
     }
 </style>
 </head>
@@ -90,7 +82,6 @@
         <input type="number" id="volume" placeholder="أدخل حجم القالب بالملي">
     </div>
     <div>
-        <!-- استبدال الصور بكلمات -->
         <button onclick="calculate()" id="calcButton">احسب</button>
         <button onclick="resetForm()" id="resetButton">امسح</button>
     </div>
@@ -219,5 +210,4 @@ function showRandomDuaa() {
         'اللهم فرج همنا وغمنا.',
         'اللهم اجعلنا من الذين يسيرون في طريقك.',
     ];
-    const randomIndex = Math.floor(Math.random() * duaaList.length);
-    document.get
+    const randomIndex = Math.floor(Math.random() * duaa
