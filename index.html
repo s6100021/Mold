@@ -68,6 +68,15 @@
     #footer {
         margin-top: 30px;
     }
+    #duaaBox {
+        margin-top: 20px;
+        padding: 15px;
+        background-color: #f0f8ff;
+        border-radius: 10px;
+        font-size: 18px;
+        font-weight: bold;
+        display: none;
+    }
 </style>
 </head>
 
@@ -95,6 +104,7 @@
     </div>
     <button class="share-btn" onclick="shareWhatsApp()">مشاركة على واتساب</button>
     <div id="randomMessage">كلمة عشوائية: لا تتوقف عن المحاولة!</div>
+    <div id="duaaBox"></div> <!-- صندوق الأدعية -->
     <div id="footer">
         <p>إصدار: 3.0</p>
         <p id="visitor-count">عدد الزوار: 0</p>
@@ -199,7 +209,15 @@ function showRandomMessage() {
     document.getElementById('randomMessage').innerText = `كلمة عشوائية: ${messages[randomIndex]}`;
     document.getElementById('randomMessage').style.display = 'block';
 }
-</script>
 
-</body>
-</html>
+// عرض أدعية عشوائية عند الدخول للصفحة
+function showRandomDuaa() {
+    const duaaList = [
+        'اللهم اجعلنا من أهل الجنة.',
+        'اللهم ارزقنا الصحة والعافية.',
+        'اللهم اجعلنا من الشاكرين.',
+        'اللهم فرج همنا وغمنا.',
+        'اللهم اجعلنا من الذين يسيرون في طريقك.',
+    ];
+    const randomIndex = Math.floor(Math.random() * duaaList.length);
+    document.get
