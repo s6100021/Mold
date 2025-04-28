@@ -73,14 +73,15 @@
 <body>
 
 <div class="container">
-    <!-- إعادة إضافة صورة برنامج حساب الكميات -->
+    <!-- استبدال صورة الشعار بصورة "برنامج حساب كميات الخلطة" -->
     <img src="ml.png" alt="برنامج حساب الكميات" style="width: 200px; margin-bottom: 20px;">
+    
     <div>
-        <img src="logo.png" alt="شعار" style="width: 100px; margin-bottom: 20px;">
-    </div>
-    <div>
+        <!-- نقل صورة "ادخل حجم القالب" إلى فوق مكان الإدخال -->
+        <img src="ml.png" alt="ادخل حجم القالب" style="width: 200px; margin-bottom: 20px;">
         <input type="number" id="volume" placeholder="أدخل حجم القالب بالملي">
     </div>
+    
     <div>
         <button onclick="calculate()" id="calcButton">
             <img src="cont.png" alt="احسب">
@@ -89,10 +90,13 @@
             <img src="delet.png" alt="مسح">
         </button>
     </div>
+    
     <div id="results" style="display:none;"></div>
     <div id="total" style="display:none;"></div>
     <div id="randomMessageContainer" style="display:none;"></div> <!-- هنا ستظهر الجملة العشوائية -->
+    
     <button class="share-btn" id="shareButton" onclick="shareWhatsApp()">مشاركة على واتساب</button>
+    
     <div class="counter">
         <p>عدد الزوار: <span id="visitorCount">0</span></p>
         <p>الإصدار: 3.0</p>
