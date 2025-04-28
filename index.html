@@ -34,7 +34,7 @@
     }
 
     h1 {
-      color: #ffd700;
+      color: #00bcd4;
       margin-bottom: 20px;
       font-size: 30px;
     }
@@ -51,7 +51,7 @@
       margin-top: 15px;
       margin-bottom: 20px;
       border-radius: 10px;
-      border: 2px solid #ffd700;
+      border: 2px solid #00bcd4;
       background-color: rgba(255,255,255,0.2);
       color: white;
     }
@@ -63,7 +63,7 @@
     button {
       padding: 15px 30px;
       font-size: 18px;
-      background-color: #ffd700;
+      background-color: #00bcd4;
       color: #333;
       border: none;
       border-radius: 50px;
@@ -73,13 +73,22 @@
     }
 
     button:hover {
-      background-color: #e6c200;
+      background-color: #0097a7;
       color: black;
     }
 
     .toggle-theme {
+      position: absolute;
+      top: 10px;
+      right: 10px;
       background-color: #4caf50;
       color: white;
+      padding: 8px 15px;
+      font-size: 14px;
+      border-radius: 30px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s;
     }
 
     .toggle-theme:hover {
@@ -93,7 +102,7 @@
       background-color: rgba(255, 255, 255, 0.15);
       padding: 20px;
       border-radius: 10px;
-      border: 2px solid #ffd700;
+      border: 2px solid #00bcd4;
       opacity: 0;
       transform: scale(0.8);
       animation: fadeInZoom 0.8s forwards;
@@ -103,7 +112,7 @@
     .total {
       font-size: 22px;
       background-color: rgba(255, 255, 255, 0.2);
-      border-color: #ff9800;
+      border-color: #2196f3;
     }
 
     @keyframes fadeInZoom {
@@ -119,7 +128,7 @@
       background-color: rgba(255,255,255,0.15);
       padding: 10px;
       border-radius: 10px;
-      border: 2px solid #ffd700;
+      border: 2px solid #00bcd4;
       width: 90%;
       max-width: 250px;
       text-align: center;
@@ -168,6 +177,8 @@
 
 <body>
 
+<button class="toggle-theme" onclick="toggleTheme()">الوضع الليلي</button>
+
 <div class="container">
   <h1>برنامج حساب كميات الخلطة</h1>
 
@@ -177,7 +188,6 @@
   <div class="buttons">
     <button onclick="calculate()">احسب</button>
     <button onclick="clearFields()">تفريغ</button>
-    <button class="toggle-theme" onclick="toggleTheme()">الوضع الليلي</button>
   </div>
 
   <div class="result" id="result"></div>
