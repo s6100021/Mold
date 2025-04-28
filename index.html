@@ -11,6 +11,7 @@
         margin: 0;
         padding: 0;
         text-align: center;
+        transition: background-color 0.5s, color 0.5s;
     }
     .container {
         max-width: 600px;
@@ -20,6 +21,28 @@
         border-radius: 15px;
         box-shadow: 0 0 10px #ccc;
     }
+    /* فريم صورة برنامج حساب كميات الخلطة */
+    .program-frame {
+        width: 100%;
+        border: 3px solid #ddd;
+        padding: 15px;
+        margin-bottom: 20px;
+        border-radius: 10px;
+    }
+    .program-logo {
+        width: 100%;
+        max-height: 250px;
+        object-fit: contain;
+    }
+
+    /* فريم حجم القالب مع الإدخال والأزرار */
+    .input-frame {
+        background-color: #f2f2f2;
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+    }
+    
     input, button {
         padding: 10px;
         margin: 10px;
@@ -67,27 +90,37 @@
         margin-top: 10px;
         color: #888;
     }
-    /* تكبير صورة "برنامج حساب كميات الخلطة" */
-    .program-logo {
-        width: 100%;
-        margin-bottom: 20px;
+    /* فريم الوضع الليلي وعداد الزوار ورقم النسخة */
+    .footer-frame {
+        background-color: #f2f2f2;
+        padding: 15px;
+        border-radius: 10px;
+        margin-top: 20px;
     }
-    /* تكبير صورة الوضع الليلي */
     .dark-mode-img {
         width: 70px;
-        margin-bottom: 20px;
+        cursor: pointer;
+        margin-top: 10px;
     }
-    /* تنسيق عداد الزوار */
     .visitor-counter {
         font-size: 18px;
-        margin-top: 20px;
+        margin-top: 10px;
         color: #888;
     }
-    /* تنسيق رقم النسخة */
     .version {
         font-size: 14px;
         color: #555;
-        margin-top: 20px;
+        margin-top: 10px;
+    }
+
+    /* إعدادات الوضع الليلي */
+    .dark-mode {
+        background-color: #333;
+        color: #fff;
+    }
+    .dark-mode .container {
+        background: #444;
+        box-shadow: 0 0 10px #333;
     }
 </style>
 </head>
@@ -95,20 +128,24 @@
 <body>
 
 <div class="container">
-    <!-- صورة "برنامج حساب كميات الخلطة" تأخذ العرض الكامل -->
-    <img src="program_logo.png" alt="برنامج حساب كميات الخلطة" class="program-logo">
+    <!-- فريم صورة "برنامج حساب كميات الخلطة" -->
+    <div class="program-frame">
+        <img src="program_logo.png" alt="برنامج حساب كميات الخلطة" class="program-logo">
+    </div>
     
-    <!-- صورة "ادخل حجم القالب" فوق مكان الإدخال -->
-    <img src="ml.png" alt="ادخل حجم القالب" style="width: 200px; margin-bottom: 20px;">
-    <input type="number" id="volume" placeholder="أدخل حجم القالب بالملي">
-    
-    <div>
-        <button onclick="calculate()" id="calcButton">
-            <img src="cont.png" alt="احسب">
-        </button>
-        <button onclick="resetForm()" id="resetButton">
-            <img src="delet.png" alt="مسح">
-        </button>
+    <!-- فريم "ادخل حجم القالب" مع الإدخال والأزرار -->
+    <div class="input-frame">
+        <img src="ml.png" alt="ادخل حجم القالب" style="width: 200px; margin-bottom: 20px;">
+        <input type="number" id="volume" placeholder="أدخل حجم القالب بالملي">
+        
+        <div>
+            <button onclick="calculate()" id="calcButton">
+                <img src="cont.png" alt="احسب">
+            </button>
+            <button onclick="resetForm()" id="resetButton">
+                <img src="delet.png" alt="مسح">
+            </button>
+        </div>
     </div>
 
     <div id="results" style="display:none;"></div>
@@ -117,14 +154,12 @@
     
     <!-- مشاركة على واتساب -->
     <button class="share-btn" onclick="shareWhatsApp()">مشاركة على واتساب</button>
+</div>
 
-    <!-- زر الوضع الليلي تحت في المنتصف -->
-    <img src="dark.png" alt="الوضع الليلي" class="dark-mode-img">
-
-    <!-- عداد الزوار -->
+<!-- فريم الوضع الليلي وعداد الزوار ورقم النسخة -->
+<div class="footer-frame">
+    <img src="dark.png" alt="الوضع الليلي" class="dark-mode-img" onclick="toggleDarkMode()">
     <div class="visitor-counter" id="visitorCounter">عدد الزوار: 0</div>
-    
-    <!-- رقم النسخة -->
     <div class="version">النسخة: 3.0</div>
 </div>
 
@@ -223,6 +258,11 @@ function shareWhatsApp() {
     const message = `نتيجة حساب الكميات:\nجبس: ${gypsum} جرام\nإسمنت: ${cement} جرام\nماء: ${water} جرام\nالمجموع الكلي: ${sum} جرام\nمقدمة من برنامج حساب الخلطة.`;
     const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
+}
+
+// تفعيل وتعطيل الوضع الليلي
+function toggleDarkMode() {
+    document.body.classList.toggle('dark-mode');
 }
 </script>
 
