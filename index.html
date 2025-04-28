@@ -92,8 +92,15 @@
     }
 
     .toggle-theme img {
-      width: 80px;
+      width: 120px;
       height: auto;
+      transition: all 0.3s ease;
+      filter: drop-shadow(0 0 10px rgba(0,0,0,0.3));
+    }
+
+    .toggle-theme img:hover {
+      filter: drop-shadow(0 0 15px rgba(0, 188, 212, 0.7));
+      transform: scale(1.1);
     }
 
     .result, .total {
@@ -172,7 +179,6 @@
       background-color: rgba(50, 100, 50, 0.7);
     }
 
-    /* Responsive تحسينات */
     @media (max-width: 768px) {
       .container {
         width: 90%;
@@ -185,7 +191,7 @@
         width: 100px;
       }
       .toggle-theme img {
-        width: 70px;
+        width: 100px;
       }
     }
 
@@ -202,7 +208,7 @@
         width: 90px;
       }
       .toggle-theme img {
-        width: 60px;
+        width: 90px;
       }
       .result, .total {
         font-size: 18px;
