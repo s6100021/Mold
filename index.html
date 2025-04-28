@@ -11,7 +11,6 @@
         margin: 0;
         padding: 0;
         text-align: center;
-        transition: background-color 0.5s, color 0.5s;
     }
     .container {
         max-width: 100%;
@@ -23,7 +22,6 @@
         width: auto;
     }
 
-    /* صورة برنامج حساب كميات الخلطة بدون إطار */
     .program-logo {
         width: 100%;
         max-width: 500px;
@@ -32,7 +30,6 @@
         margin: 0 auto;
     }
 
-    /* فريم "ادخل حجم القالب" مع الإدخال والأزرار */
     .input-frame {
         background-color: #f2f2f2;
         padding: 5vw;
@@ -61,7 +58,7 @@
     button:hover {
         background-color: transparent;
     }
-    #results, #total, #randomMessageContainer {
+    #results, #total {
         margin-top: 20px;
         background: #e0ffe0;
         padding: 15px;
@@ -76,7 +73,6 @@
         border: none;
         border-radius: 10px;
         cursor: pointer;
-        transition: 0.3s;
         display: none;
     }
     .share-btn:hover {
@@ -88,87 +84,40 @@
         border-radius: 10px;
         margin-top: 5vw;
     }
-    .dark-mode-img {
-        width: 15vw;
-        cursor: pointer;
-        margin-top: 2vw;
-    }
-    .visitor-counter {
-        font-size: 5vw;
-        margin-top: 5vw;
-        color: #888;
-    }
-    .version {
-        font-size: 4vw;
-        color: #555;
-        margin-top: 5vw;
-    }
 
-    /* إعدادات الوضع الليلي */
-    .dark-mode {
-        background-color: #333;
-        color: #fff;
-    }
-    .dark-mode .container {
-        background: #444;
-        box-shadow: 0 0 10px #333;
-    }
 </style>
 </head>
 
 <body>
 
 <div class="container">
-    <!-- صورة "برنامج حساب كميات الخلطة" بدون إطار -->
     <img src="program_logo.png" alt="برنامج حساب كميات الخلطة" class="program-logo">
     
-    <!-- فريم "ادخل حجم القالب" مع الإدخال والأزرار -->
     <div class="input-frame">
-        <img src="ml.png" alt="ادخل حجم القالب" style="width: 200px; margin-bottom: 20px;">
         <input type="number" id="volume" placeholder="أدخل حجم القالب بالملي">
         
         <div>
-            <button onclick="calculate()" id="calcButton">
-                <img src="cont.png" alt="احسب">
-            </button>
-            <button onclick="resetForm()" id="resetButton">
-                <img src="delet.png" alt="مسح">
-            </button>
+            <button onclick="calculate()">احسب</button>
+            <button onclick="resetForm()">مسح</button>
         </div>
     </div>
 
-    <div id="results" style="display:none;"></div>
-    <div id="total" style="display:none;"></div>
-    <div id="randomMessageContainer" style="display:none;"></div>
+    <div id="results" style="display:none;">
+        <p>الجبس: <span id="gypsum">0</span> جرام</p>
+        <p>الإسمنت: <span id="cement">0</span> جرام</p>
+        <p>الماء: <span id="water">0</span> جرام</p>
+    </div>
+    <div id="total" style="display:none;">
+        <strong>المجموع الكلي: <span id="sum">0</span> جرام</strong>
+    </div>
     
-    <!-- مشاركة على واتساب -->
     <button class="share-btn" onclick="shareWhatsApp()">مشاركة على واتساب</button>
-</div>
-
-<!-- فريم الوضع الليلي وعداد الزوار ورقم النسخة -->
-<div class="footer-frame">
-    <img src="dark.png" alt="الوضع الليلي" class="dark-mode-img" onclick="toggleDarkMode()">
-    <div class="visitor-counter" id="visitorCounter">عدد الزوار: 0</div>
-    <div class="version">النسخة: 3.0</div>
 </div>
 
 <audio id="clickSound" src="https://www.soundjay.com/buttons/sounds/button-29.mp3"></audio>
 
 <script>
-// متغير لتخزين عدد الزيارات
-let visitCount = localStorage.getItem('visitCount') || 0;
-visitCount++;
-localStorage.setItem('visitCount', visitCount);
-
-// تحديث عداد الزوار
-document.getElementById('visitorCounter').innerText = `عدد الزوار: ${visitCount}`;
-
-// صوت الضغط
-function playSound() {
-    document.getElementById('clickSound').play();
-}
-
-// تأثير العداد
+// حساب نتائج العداد
 function animateNumber(element, start, end, duration) {
     let range = end - start;
     let current = start;
@@ -183,14 +132,14 @@ function animateNumber(element, start, end, duration) {
     }, 20);
 }
 
-// حساب النتائج
+// حساب الكميات عند الضغط على زر "احسب"
 function calculate() {
-    playSound();
     const volume = parseFloat(document.getElementById('volume').value);
     if (isNaN(volume)) {
         alert("الرجاء إدخال رقم صحيح لحجم القالب.");
         return;
     }
+
     const ratio = volume / 300;
     const gypsum = Math.round(280 * ratio);
     const cement = Math.round(26 * ratio);
@@ -199,32 +148,26 @@ function calculate() {
 
     document.getElementById('results').style.display = 'block';
     document.getElementById('total').style.display = 'block';
-    document.getElementById('results').innerHTML = `
-        <p>الجبس: <span id="gypsum">0</span> جرام</p>
-        <p>الإسمنت: <span id="cement">0</span> جرام</p>
-        <p>الماء: <span id="water">0</span> جرام</p>
-    `;
-    document.getElementById('total').innerHTML = `<strong>المجموع الكلي: <span id="sum">0</span> جرام</strong>`;
 
+    // تطبيق التأثير على الأرقام
     animateNumber(document.getElementById('gypsum'), 0, gypsum, 1000);
     animateNumber(document.getElementById('cement'), 0, cement, 1000);
     animateNumber(document.getElementById('water'), 0, water, 1000);
     animateNumber(document.getElementById('sum'), 0, total, 1000);
 
-    // إظهار زر الواتساب
+    // إظهار زر المشاركة على واتساب
     document.querySelector('.share-btn').style.display = 'block';
 }
 
-// إعادة تعيين المدخلات
+// إعادة تعيين المدخلات عند الضغط على "مسح"
 function resetForm() {
-    playSound();
     document.getElementById('volume').value = '';
     document.getElementById('results').style.display = 'none';
     document.getElementById('total').style.display = 'none';
     document.querySelector('.share-btn').style.display = 'none';
 }
 
-// مشاركة بالواتساب
+// مشاركة النتائج عبر واتساب
 function shareWhatsApp() {
     const gypsum = document.getElementById('gypsum').innerText;
     const cement = document.getElementById('cement').innerText;
@@ -235,5 +178,7 @@ function shareWhatsApp() {
     const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
 }
+</script>
 
-//
+</body>
+</html>
