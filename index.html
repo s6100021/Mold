@@ -38,7 +38,7 @@
     }
 
     .input-frame img {
-        width: 50%;
+        width: 80%; /* زيادة الحجم */
         display: block;
         margin: 0 auto;
     }
@@ -90,6 +90,15 @@
         border-radius: 10px;
         margin-top: 5vw;
     }
+
+    /* توسيط الأزرار مع بعض */
+    .button-container {
+        text-align: center;
+    }
+
+    .button-container button {
+        margin: 0 2vw; /* توسيط الأزرار */
+    }
 </style>
 </head>
 
@@ -103,7 +112,7 @@
         <img src="ml.png" alt="ادخل حجم القالب">
         <input type="number" id="volume" placeholder="أدخل حجم القالب بالملي">
         
-        <div>
+        <div class="button-container">
             <button onclick="calculate()">
                 <img src="cont.png" alt="احسب">
             </button>
