@@ -99,6 +99,16 @@
     .button-container button {
         margin: 0 2vw; /* توسيط الأزرار */
     }
+
+    #duaaBox {
+        margin-top: 30px;
+        background: #f0f8ff;
+        padding: 15px;
+        border-radius: 10px;
+        font-size: 5vw;
+        color: #0078d4;
+        display: none;
+    }
 </style>
 </head>
 
@@ -132,6 +142,9 @@
     </div>
     
     <button class="share-btn" onclick="shareWhatsApp()">مشاركة على واتساب</button>
+
+    <!-- مربع الأدعية العشوائية -->
+    <div id="duaaBox"></div> <!-- هذا هو المربع الذي سيظهر فيه الدعاء العشوائي -->
 </div>
 
 <audio id="clickSound" src="https://www.soundjay.com/buttons/sounds/button-29.mp3"></audio>
@@ -177,6 +190,9 @@ function calculate() {
 
     // إظهار زر المشاركة على واتساب
     document.querySelector('.share-btn').style.display = 'block';
+
+    // عرض الدعاء العشوائي بعد الحساب
+    showRandomDuaa();
 }
 
 // إعادة تعيين المدخلات عند الضغط على "مسح"
@@ -185,6 +201,7 @@ function resetForm() {
     document.getElementById('results').style.display = 'none';
     document.getElementById('total').style.display = 'none';
     document.querySelector('.share-btn').style.display = 'none';
+    document.getElementById('duaaBox').style.display = 'none'; // إخفاء الدعاء العشوائي
 }
 
 // مشاركة النتائج عبر واتساب
@@ -197,6 +214,20 @@ function shareWhatsApp() {
     const message = `حساب كميات الخلطة: \nالجبس: ${gypsum} جرام\nالإسمنت: ${cement} جرام\nالماء: ${water} جرام\nالمجموع الكلي: ${sum} جرام\nمقدمة من برنامج حساب الخلطة.`;
     const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
+}
+
+// عرض دعاء عشوائي
+function showRandomDuaa() {
+    const duaaList = [
+        'اللهم اجعلنا من أهل الجنة.',
+        'اللهم ارزقنا الصحة والعافية.',
+        'اللهم اجعلنا من الشاكرين.',
+        'اللهم فرج همنا وغمنا.',
+        'اللهم اجعلنا من الذين يسيرون في طريقك.',
+    ];
+    const randomIndex = Math.floor(Math.random() * duaaList.length);
+    document.getElementById('duaaBox').innerText = duaaList[randomIndex];
+    document.getElementById('duaaBox').style.display = 'block';
 }
 </script>
 
