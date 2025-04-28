@@ -14,42 +14,36 @@
         transition: background-color 0.5s, color 0.5s;
     }
     .container {
-        max-width: 600px;
+        max-width: 100%;
         margin: 30px auto;
         background: #f9f9f9;
-        padding: 20px;
+        padding: 5vw;
         border-radius: 15px;
         box-shadow: 0 0 10px #ccc;
+        width: auto;
     }
-    /* فريم صورة برنامج حساب كميات الخلطة بتعديل القياسات */
-    .program-frame {
-        width: 100%;
-        border: 4px solid #ddd;
-        padding: 15px;
-        margin-bottom: 20px;
-        border-radius: 15px;
-        background-color: #f0f0f0;
-    }
+
+    /* صورة برنامج حساب كميات الخلطة بدون إطار */
     .program-logo {
         width: 100%;
-        max-height: 300px;
-        object-fit: contain;
+        max-width: 500px; /* التأكد من أن الصورة لن تتعدى 500px */
+        height: auto;
         display: block;
         margin: 0 auto;
     }
 
-    /* فريم حجم القالب مع الإدخال والأزرار */
+    /* فريم "ادخل حجم القالب" مع الإدخال والأزرار */
     .input-frame {
         background-color: #f2f2f2;
-        padding: 20px;
+        padding: 5vw;
         border-radius: 10px;
-        margin-bottom: 20px;
+        margin-bottom: 5vw;
     }
     
     input, button {
-        padding: 10px;
-        margin: 10px;
-        font-size: 18px;
+        padding: 3vw;
+        margin: 3vw;
+        font-size: 5vw;
         border-radius: 10px;
         border: 1px solid #ddd;
     }
@@ -61,7 +55,7 @@
         padding: 0;
     }
     button img {
-        height: 30px;
+        height: 10vw;
         width: auto;
     }
     button:hover {
@@ -76,44 +70,38 @@
     .share-btn {
         background-color: #25D366;
         color: white;
-        padding: 10px 20px;
-        font-size: 18px;
-        margin-top: 15px;
+        padding: 5vw 10vw;
+        font-size: 5vw;
+        margin-top: 5vw;
         border: none;
         border-radius: 10px;
         cursor: pointer;
         transition: 0.3s;
-        display: none; /* إخفاء الزر في البداية */
+        display: none;
     }
     .share-btn:hover {
         background-color: #1ebe57;
     }
-    .counter {
-        font-size: 18px;
-        margin-top: 10px;
-        color: #888;
-    }
-    /* فريم الوضع الليلي وعداد الزوار ورقم النسخة */
     .footer-frame {
         background-color: #f2f2f2;
-        padding: 15px;
+        padding: 5vw;
         border-radius: 10px;
-        margin-top: 20px;
+        margin-top: 5vw;
     }
     .dark-mode-img {
-        width: 70px;
+        width: 15vw;
         cursor: pointer;
-        margin-top: 10px;
+        margin-top: 2vw;
     }
     .visitor-counter {
-        font-size: 18px;
-        margin-top: 10px;
+        font-size: 5vw;
+        margin-top: 5vw;
         color: #888;
     }
     .version {
-        font-size: 14px;
+        font-size: 4vw;
         color: #555;
-        margin-top: 10px;
+        margin-top: 5vw;
     }
 
     /* إعدادات الوضع الليلي */
@@ -125,16 +113,35 @@
         background: #444;
         box-shadow: 0 0 10px #333;
     }
+
+    /* Media Queries for larger screens */
+    @media (min-width: 768px) {
+        .container {
+            padding: 20px;
+        }
+        .program-logo {
+            max-width: 400px;
+        }
+        input, button {
+            padding: 15px;
+            margin: 15px;
+            font-size: 18px;
+        }
+        .share-btn {
+            font-size: 18px;
+        }
+        .footer-frame {
+            padding: 20px;
+        }
+    }
 </style>
 </head>
 
 <body>
 
 <div class="container">
-    <!-- فريم صورة "برنامج حساب كميات الخلطة" -->
-    <div class="program-frame">
-        <img src="program_logo.png" alt="برنامج حساب كميات الخلطة" class="program-logo">
-    </div>
+    <!-- صورة "برنامج حساب كميات الخلطة" بدون إطار -->
+    <img src="program_logo.png" alt="برنامج حساب كميات الخلطة" class="program-logo">
     
     <!-- فريم "ادخل حجم القالب" مع الإدخال والأزرار -->
     <div class="input-frame">
@@ -224,9 +231,6 @@ function calculate() {
     animateNumber(document.getElementById('cement'), 0, cement, 1000);
     animateNumber(document.getElementById('water'), 0, water, 1000);
     animateNumber(document.getElementById('sum'), 0, total, 1000);
-
-    // عرض الجملة العشوائية بعد النتائج
-    displayRandomMessage();
 }
 
 // إعادة تعيين المدخلات
@@ -235,20 +239,6 @@ function resetForm() {
     document.getElementById('volume').value = '';
     document.getElementById('results').style.display = 'none';
     document.getElementById('total').style.display = 'none';
-    document.getElementById('randomMessageContainer').style.display = 'none';
-}
-
-// عرض رسالة عشوائية
-function displayRandomMessage() {
-    const messages = [
-        "عمل رائع! استمر في التقدم.",
-        "النتيجة صحيحة! يمكنك البدء في العمل.",
-        "مبروك! النتيجة جاهزة.",
-        "تمام! كل شيء جاهز للاستخدام.",
-    ];
-    const randomMessage = messages[Math.floor(Math.random() * messages.length)];
-    document.getElementById('randomMessageContainer').innerHTML = `<p>${randomMessage}</p>`;
-    document.getElementById('randomMessageContainer').style.display = 'block';
 }
 
 // مشاركة بالواتساب
@@ -258,16 +248,4 @@ function shareWhatsApp() {
     const water = document.getElementById('water').innerText;
     const sum = document.getElementById('sum').innerText;
 
-    const message = `نتيجة حساب الكميات:\nجبس: ${gypsum} جرام\nإسمنت: ${cement} جرام\nماء: ${water} جرام\nالمجموع الكلي: ${sum} جرام\nمقدمة من برنامج حساب الخلطة.`;
-    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
-}
-
-// تفعيل وتعطيل الوضع الليلي
-function toggleDarkMode() {
-    document.body.classList.toggle('dark-mode');
-}
-</script>
-
-</body>
-</html>
+    const message = `
