@@ -189,6 +189,21 @@ function playSound() {
     document.getElementById('clickSound').play();
 }
 
+// تأثير العداد
+function animateNumber(element, start, end, duration) {
+    let range = end - start;
+    let current = start;
+    let increment = range / (duration / 20);
+    let timer = setInterval(function() {
+        current += increment;
+        element.innerText = Math.floor(current);
+        if ((increment > 0 && current >= end) || (increment < 0 && current <= end)) {
+            element.innerText = end;
+            clearInterval(timer);
+        }
+    }, 20);
+}
+
 // حساب النتائج
 function calculate() {
     playSound();
@@ -206,11 +221,16 @@ function calculate() {
     document.getElementById('results').style.display = 'block';
     document.getElementById('total').style.display = 'block';
     document.getElementById('results').innerHTML = `
-        <p>الجبس: <span id="gypsum">${gypsum}</span> جرام</p>
-        <p>الإسمنت: <span id="cement">${cement}</span> جرام</p>
-        <p>الماء: <span id="water">${water}</span> جرام</p>
+        <p>الجبس: <span id="gypsum">0</span> جرام</p>
+        <p>الإسمنت: <span id="cement">0</span> جرام</p>
+        <p>الماء: <span id="water">0</span> جرام</p>
     `;
-    document.getElementById('total').innerHTML = `<strong>المجموع الكلي: <span id="sum">${total}</span> جرام</strong>`;
+    document.getElementById('total').innerHTML = `<strong>المجموع الكلي: <span id="sum">0</span> جرام</strong>`;
+
+    animateNumber(document.getElementById('gypsum'), 0, gypsum, 1000);
+    animateNumber(document.getElementById('cement'), 0, cement, 1000);
+    animateNumber(document.getElementById('water'), 0, water, 1000);
+    animateNumber(document.getElementById('sum'), 0, total, 1000);
 }
 
 // إعادة تعيين المدخلات
@@ -228,17 +248,4 @@ function shareWhatsApp() {
     const water = document.getElementById('water').innerText;
     const sum = document.getElementById('sum').innerText;
 
-    const message = `حساب كميات الخلطة: \nالجبس: ${gypsum} جرام\nالإسمنت: ${cement} جرام\nالماء: ${water} جرام\nالمجموع الكلي: ${sum} جرام`;
-    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
-}
-
-// الوضع الليلي
-function toggleDarkMode() {
-    const body = document.body;
-    body.classList.toggle('dark-mode');
-}
-</script>
-
-</body>
-</html>
+    const message = `حساب كميات الخلطة: \nالجبس: ${gypsum} جرام\nالإسمنت:
