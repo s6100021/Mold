@@ -25,7 +25,7 @@
         margin: 10px;
         font-size: 18px;
         border-radius: 10px;
-        border: none; /* إزالة الحدود حول الأزرار */
+        border: none;
     }
     button {
         cursor: pointer;
@@ -44,20 +44,18 @@
         border: 2px solid green;
         border-radius: 10px;
     }
-    .share-btn {
-        background-color: #25D366;
-        color: white;
-        padding: 10px 20px;
-        font-size: 18px;
-        margin-top: 15px;
-        border: none; /* إزالة الحدود حول الزر */
+    .random-text {
+        margin-top: 20px;
+        background-color: #f9f9f9;
+        padding: 15px;
+        border: 2px solid #ccc;
         border-radius: 10px;
-        cursor: pointer;
-        transition: 0.3s;
         display: none;
     }
-    .share-btn:hover {
-        background-color: #1ebe57;
+    .footer {
+        margin-top: 30px;
+        font-size: 14px;
+        color: #555;
     }
 </style>
 </head>
@@ -84,16 +82,18 @@
     
     <div id="results" style="display:none;"></div>
     <div id="total" style="display:none;"></div>
-
-    <button class="share-btn" onclick="shareWhatsApp()">مشاركة على واتساب</button>
+    <div id="randomText" class="random-text"></div>
 </div>
 
-<audio id="clickSound" src="https://www.soundjay.com/buttons/sounds/button-29.mp3"></audio>
+<div class="footer">
+    <p>الإصدار: 3.0</p>
+</div>
 
 <script>
 // صوت الضغط
 function playSound() {
-    document.getElementById('clickSound').play();
+    const clickSound = new Audio('https://www.soundjay.com/buttons/sounds/button-29.mp3');
+    clickSound.play();
 }
 
 // تأثير العداد
@@ -127,20 +127,21 @@ function calculate() {
 
     document.getElementById('results').style.display = 'block';
     document.getElementById('total').style.display = 'block';
+    document.getElementById('randomText').style.display = 'block';
+
     document.getElementById('results').innerHTML = `
         <p>الجبس: <span id="gypsum">0</span> جرام</p>
         <p>الإسمنت: <span id="cement">0</span> جرام</p>
         <p>الماء: <span id="water">0</span> جرام</p>
     `;
     document.getElementById('total').innerHTML = `<strong>المجموع الكلي: <span id="sum">0</span> جرام</strong>`;
+    document.getElementById('randomText').innerHTML = `<p>${generateRandomText()}</p>`;
 
     animateNumber(document.getElementById('gypsum'), 0, gypsum, 1000);
     animateNumber(document.getElementById('cement'), 0, cement, 1000);
     animateNumber(document.getElementById('water'), 0, water, 1000);
     animateNumber(document.getElementById('sum'), 0, total, 1000);
-    
-    // إظهار زر المشاركة بعد ظهور النتائج
-    document.querySelector('.share-btn').style.display = 'block';
+    animateRandomText();
 }
 
 // إعادة تعيين المدخلات
@@ -149,19 +150,28 @@ function resetForm() {
     document.getElementById('volume').value = '';
     document.getElementById('results').style.display = 'none';
     document.getElementById('total').style.display = 'none';
-    document.querySelector('.share-btn').style.display = 'none'; // إخفاء الزر عند المسح
+    document.getElementById('randomText').style.display = 'none';
 }
 
-// مشاركة بالواتساب
-function shareWhatsApp() {
-    const gypsum = document.getElementById('gypsum').innerText;
-    const cement = document.getElementById('cement').innerText;
-    const water = document.getElementById('water').innerText;
-    const sum = document.getElementById('sum').innerText;
+// توليد النص العشوائي
+function generateRandomText() {
+    const texts = [
+        "كل شيء تم حسابه بدقة، استمتع بالخلاطة!",
+        "تحقق من الكميات وابدأ في العمل!",
+        "تمت الحسابات بنجاح، حان الوقت للعمل!",
+        "الحسابات جاهزة، الآن وقت التنفيذ!"
+    ];
+    return texts[Math.floor(Math.random() * texts.length)];
+}
 
-    const message = `نتيجة حساب الكميات:\nجبس: ${gypsum} جرام\nإسمنت: ${cement} جرام\nماء: ${water} جرام\nالمجموع الكلي: ${sum} جرام\nمقدمة من برنامج حساب الخلطة.`;
-    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
+// تأثير النص العشوائي
+function animateRandomText() {
+    const randomText = document.getElementById('randomText');
+    randomText.style.transition = "all 0.5s ease-in-out";
+    randomText.style.transform = "scale(1.1)";
+    setTimeout(function() {
+        randomText.style.transform = "scale(1)";
+    }, 500);
 }
 </script>
 
