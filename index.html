@@ -30,18 +30,21 @@
     button {
         cursor: pointer;
         font-weight: bold;
-        background-color: #4CAF50;
-        color: white;
-        transition: 0.3s;
+        background-color: transparent;
+        border: none;
+        padding: 0;
+    }
+    button img {
+        height: 30px;
+        width: auto;
     }
     button:hover {
-        background-color: #45a049;
+        background-color: transparent;
     }
     #results, #total {
         margin-top: 20px;
         background: #e0ffe0;
         padding: 15px;
-        border: 2px solid green;
         border-radius: 10px;
     }
     .share-btn {
@@ -58,15 +61,15 @@
     .share-btn:hover {
         background-color: #1ebe57;
     }
-    .visit-counter {
-        margin-top: 20px;
-        font-size: 16px;
-        color: #333;
-    }
-    .version-info {
-        margin-top: 40px;
-        font-size: 14px;
+    .counter {
+        font-size: 18px;
+        margin-top: 10px;
         color: #888;
+    }
+    #randomMessage {
+        margin-top: 15px;
+        font-size: 18px;
+        color: #555;
     }
 </style>
 </head>
@@ -74,8 +77,7 @@
 <body>
 
 <div class="container">
-    <!-- استبدال صورة الشعار بالصورة الجديدة -->
-    <img src="program_logo.png" alt="برنامج حساب الكميات" style="width: 100%; margin-bottom: 20px;">
+    <img src="logo.png" alt="شعار" style="width: 100px; margin-bottom: 20px;">
     <div>
         <img src="ml.png" alt="ادخل حجم القالب" style="width: 200px;">
         <br>
@@ -83,34 +85,25 @@
     </div>
     <div>
         <button onclick="calculate()" id="calcButton">
-            <img src="cont.png" alt="احسب" style="height: 30px;">
+            <img src="cont.png" alt="احسب">
         </button>
         <button onclick="resetForm()" id="resetButton">
-            <img src="delet.png" alt="مسح" style="height: 30px;">
+            <img src="delet.png" alt="مسح">
         </button>
     </div>
     <div id="results" style="display:none;"></div>
     <div id="total" style="display:none;"></div>
     <button class="share-btn" onclick="shareWhatsApp()">مشاركة على واتساب</button>
-    
-    <div class="visit-counter">
-        <p>عدد الزيارات: <span id="visitCount">0</span></p>
+    <div class="counter">
+        <p>عدد الزوار: <span id="visitorCount">0</span></p>
+        <p>الإصدار: 3.0</p>
     </div>
-
-    <div class="version-info">
-        <p>النسخة: 3.0</p>
-    </div>
+    <div id="randomMessage"></div> <!-- هنا ستظهر الجملة العشوائية -->
 </div>
 
 <audio id="clickSound" src="https://www.soundjay.com/buttons/sounds/button-29.mp3"></audio>
 
 <script>
-// زيادة عداد الزيارات
-let visitCount = localStorage.getItem('visitCount') ? parseInt(localStorage.getItem('visitCount')) : 0;
-visitCount++;
-localStorage.setItem('visitCount', visitCount);
-document.getElementById('visitCount').innerText = visitCount;
-
 // صوت الضغط
 function playSound() {
     document.getElementById('clickSound').play();
@@ -158,6 +151,16 @@ function calculate() {
     animateNumber(document.getElementById('cement'), 0, cement, 1000);
     animateNumber(document.getElementById('water'), 0, water, 1000);
     animateNumber(document.getElementById('sum'), 0, total, 1000);
+
+    // إضافة الجملة العشوائية
+    const randomMessages = [
+        "مبروك! خلصت حساب الكميات.",
+        "النتائج جاهزة، استمتع بها.",
+        "قمت بحساب الكميات بنجاح!",
+        "هكذا تتم عملية حساب الكميات بسهولة."
+    ];
+    const randomMessage = randomMessages[Math.floor(Math.random() * randomMessages.length)];
+    document.getElementById('randomMessage').innerText = randomMessage;
 }
 
 // إعادة تعيين المدخلات
@@ -166,6 +169,7 @@ function resetForm() {
     document.getElementById('volume').value = '';
     document.getElementById('results').style.display = 'none';
     document.getElementById('total').style.display = 'none';
+    document.getElementById('randomMessage').innerText = ''; // إزالة الجملة العشوائية
 }
 
 // مشاركة بالواتساب
