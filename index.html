@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>برنامج حساب كميات الخلطة</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <style>
     body {
       font-family: 'Cairo', sans-serif;
@@ -13,19 +14,20 @@
       flex-direction: column;
       align-items: center;
       min-height: 100vh;
-      background-color: #ffffff; /* خلفية بيضاء */
+      background-color: #ffffff;
       color: #333;
       transition: background 0.5s, color 0.5s;
     }
 
     .container {
-      background: #ffffff; 
+      background: #ffffff;
       padding: 30px;
       border-radius: 20px;
       box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2);
       text-align: center;
       width: 95%;
       max-width: 420px;
+      margin-top: 20px;
     }
 
     .logo {
@@ -90,7 +92,7 @@
     }
 
     .toggle-theme img {
-      width: 80px; /* مكبر */
+      width: 80px;
       height: auto;
     }
 
@@ -169,6 +171,44 @@
     .dark-mode .trust-message {
       background-color: rgba(50, 100, 50, 0.7);
     }
+
+    /* Responsive تحسينات */
+    @media (max-width: 768px) {
+      .container {
+        width: 90%;
+        padding: 20px;
+      }
+      input {
+        width: 90%;
+      }
+      .button-img {
+        width: 100px;
+      }
+      .toggle-theme img {
+        width: 70px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        width: 95%;
+        padding: 15px;
+      }
+      input {
+        width: 95%;
+        font-size: 16px;
+      }
+      .button-img {
+        width: 90px;
+      }
+      .toggle-theme img {
+        width: 60px;
+      }
+      .result, .total {
+        font-size: 18px;
+        padding: 15px;
+      }
+    }
   </style>
 </head>
 
@@ -192,7 +232,6 @@
   <div class="trust-message" id="trustMessage">صب وتوكل على الله</div>
 </div>
 
-<!-- زر الوضع الليلي أصبح بصورة ومكبر -->
 <button class="toggle-theme" onclick="toggleTheme()">
   <img src="dark.png" alt="الوضع الليلي">
 </button>
