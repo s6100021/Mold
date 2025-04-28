@@ -73,11 +73,14 @@
 <body>
 
 <div class="container">
-    <!-- استبدال صورة الشعار بصورة "برنامج حساب كميات الخلطة" -->
+    <!-- إضافة صورة "برنامج حساب كميات الخلطة" في أعلى الصفحة -->
     <img src="ml.png" alt="برنامج حساب الكميات" style="width: 200px; margin-bottom: 20px;">
     
+    <!-- صورة الوضع الليلي في الأعلى -->
+    <img src="dark.png" alt="الوضع الليلي" style="width: 50px; margin-bottom: 20px;">
+
     <div>
-        <!-- نقل صورة "ادخل حجم القالب" إلى فوق مكان الإدخال -->
+        <!-- صورة "ادخل حجم القالب" فوق مكان الإدخال -->
         <img src="ml.png" alt="ادخل حجم القالب" style="width: 200px; margin-bottom: 20px;">
         <input type="number" id="volume" placeholder="أدخل حجم القالب بالملي">
     </div>
@@ -90,17 +93,13 @@
             <img src="delet.png" alt="مسح">
         </button>
     </div>
-    
+
     <div id="results" style="display:none;"></div>
     <div id="total" style="display:none;"></div>
-    <div id="randomMessageContainer" style="display:none;"></div> <!-- هنا ستظهر الجملة العشوائية -->
+    <div id="randomMessageContainer" style="display:none;"></div>
     
-    <button class="share-btn" id="shareButton" onclick="shareWhatsApp()">مشاركة على واتساب</button>
-    
-    <div class="counter">
-        <p>عدد الزوار: <span id="visitorCount">0</span></p>
-        <p>الإصدار: 3.0</p>
-    </div>
+    <!-- مشاركة على واتساب -->
+    <button class="share-btn" onclick="shareWhatsApp()">مشاركة على واتساب</button>
 </div>
 
 <audio id="clickSound" src="https://www.soundjay.com/buttons/sounds/button-29.mp3"></audio>
@@ -154,19 +153,8 @@ function calculate() {
     animateNumber(document.getElementById('water'), 0, water, 1000);
     animateNumber(document.getElementById('sum'), 0, total, 1000);
 
-    // إضافة الجملة العشوائية
-    const randomMessages = [
-        "مبروك! خلصت حساب الكميات.",
-        "النتائج جاهزة، استمتع بها.",
-        "قمت بحساب الكميات بنجاح!",
-        "هكذا تتم عملية حساب الكميات بسهولة."
-    ];
-    const randomMessage = randomMessages[Math.floor(Math.random() * randomMessages.length)];
-    document.getElementById('randomMessageContainer').innerText = randomMessage;
-    document.getElementById('randomMessageContainer').style.display = 'block';
-
-    // إظهار زر المشاركة على واتساب بعد حساب النتائج
-    document.getElementById('shareButton').style.display = 'block';
+    // عرض الجملة العشوائية بعد النتائج
+    displayRandomMessage();
 }
 
 // إعادة تعيين المدخلات
@@ -175,8 +163,20 @@ function resetForm() {
     document.getElementById('volume').value = '';
     document.getElementById('results').style.display = 'none';
     document.getElementById('total').style.display = 'none';
-    document.getElementById('randomMessageContainer').style.display = 'none'; // إزالة الجملة العشوائية
-    document.getElementById('shareButton').style.display = 'none'; // إخفاء زر الواتساب
+    document.getElementById('randomMessageContainer').style.display = 'none';
+}
+
+// عرض رسالة عشوائية
+function displayRandomMessage() {
+    const messages = [
+        "عمل رائع! استمر في التقدم.",
+        "النتيجة صحيحة! يمكنك البدء في العمل.",
+        "مبروك! النتيجة جاهزة.",
+        "تمام! كل شيء جاهز للاستخدام.",
+    ];
+    const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+    document.getElementById('randomMessageContainer').innerHTML = `<p>${randomMessage}</p>`;
+    document.getElementById('randomMessageContainer').style.display = 'block';
 }
 
 // مشاركة بالواتساب
