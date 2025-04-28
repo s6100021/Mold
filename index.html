@@ -77,6 +77,18 @@
         width: 70px;
         margin-bottom: 20px;
     }
+    /* تنسيق عداد الزوار */
+    .visitor-counter {
+        font-size: 18px;
+        margin-top: 20px;
+        color: #888;
+    }
+    /* تنسيق رقم النسخة */
+    .version {
+        font-size: 14px;
+        color: #555;
+        margin-top: 20px;
+    }
 </style>
 </head>
 
@@ -86,14 +98,9 @@
     <!-- صورة "برنامج حساب كميات الخلطة" تأخذ العرض الكامل -->
     <img src="program_logo.png" alt="برنامج حساب كميات الخلطة" class="program-logo">
     
-    <!-- صورة الوضع الليلي تحت في المنتصف -->
-    <img src="dark.png" alt="الوضع الليلي" class="dark-mode-img">
-
-    <div>
-        <!-- صورة "ادخل حجم القالب" فوق مكان الإدخال -->
-        <img src="ml.png" alt="ادخل حجم القالب" style="width: 200px; margin-bottom: 20px;">
-        <input type="number" id="volume" placeholder="أدخل حجم القالب بالملي">
-    </div>
+    <!-- صورة "ادخل حجم القالب" فوق مكان الإدخال -->
+    <img src="ml.png" alt="ادخل حجم القالب" style="width: 200px; margin-bottom: 20px;">
+    <input type="number" id="volume" placeholder="أدخل حجم القالب بالملي">
     
     <div>
         <button onclick="calculate()" id="calcButton">
@@ -110,11 +117,28 @@
     
     <!-- مشاركة على واتساب -->
     <button class="share-btn" onclick="shareWhatsApp()">مشاركة على واتساب</button>
+
+    <!-- زر الوضع الليلي تحت في المنتصف -->
+    <img src="dark.png" alt="الوضع الليلي" class="dark-mode-img">
+
+    <!-- عداد الزوار -->
+    <div class="visitor-counter" id="visitorCounter">عدد الزوار: 0</div>
+    
+    <!-- رقم النسخة -->
+    <div class="version">النسخة: 3.0</div>
 </div>
 
 <audio id="clickSound" src="https://www.soundjay.com/buttons/sounds/button-29.mp3"></audio>
 
 <script>
+// متغير لتخزين عدد الزيارات
+let visitCount = localStorage.getItem('visitCount') || 0;
+visitCount++;
+localStorage.setItem('visitCount', visitCount);
+
+// تحديث عداد الزوار
+document.getElementById('visitorCounter').innerText = `عدد الزوار: ${visitCount}`;
+
 // صوت الضغط
 function playSound() {
     document.getElementById('clickSound').play();
