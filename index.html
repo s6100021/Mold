@@ -26,7 +26,7 @@
     /* صورة برنامج حساب كميات الخلطة بدون إطار */
     .program-logo {
         width: 100%;
-        max-width: 500px; /* التأكد من أن الصورة لن تتعدى 500px */
+        max-width: 500px;
         height: auto;
         display: block;
         margin: 0 auto;
@@ -112,27 +112,6 @@
     .dark-mode .container {
         background: #444;
         box-shadow: 0 0 10px #333;
-    }
-
-    /* Media Queries for larger screens */
-    @media (min-width: 768px) {
-        .container {
-            padding: 20px;
-        }
-        .program-logo {
-            max-width: 400px;
-        }
-        input, button {
-            padding: 15px;
-            margin: 15px;
-            font-size: 18px;
-        }
-        .share-btn {
-            font-size: 18px;
-        }
-        .footer-frame {
-            padding: 20px;
-        }
     }
 </style>
 </head>
@@ -231,6 +210,9 @@ function calculate() {
     animateNumber(document.getElementById('cement'), 0, cement, 1000);
     animateNumber(document.getElementById('water'), 0, water, 1000);
     animateNumber(document.getElementById('sum'), 0, total, 1000);
+
+    // إظهار زر الواتساب
+    document.querySelector('.share-btn').style.display = 'block';
 }
 
 // إعادة تعيين المدخلات
@@ -239,6 +221,7 @@ function resetForm() {
     document.getElementById('volume').value = '';
     document.getElementById('results').style.display = 'none';
     document.getElementById('total').style.display = 'none';
+    document.querySelector('.share-btn').style.display = 'none';
 }
 
 // مشاركة بالواتساب
@@ -248,4 +231,9 @@ function shareWhatsApp() {
     const water = document.getElementById('water').innerText;
     const sum = document.getElementById('sum').innerText;
 
-    const message = `حساب كميات الخلطة: \nالجبس: ${gypsum} جرام\nالإسمنت:
+    const message = `حساب كميات الخلطة: \nالجبس: ${gypsum} جرام\nالإسمنت: ${cement} جرام\nالماء: ${water} جرام\nالمجموع الكلي: ${sum} جرام\nمقدمة من برنامج حساب الخلطة.`;
+    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+}
+
+//
