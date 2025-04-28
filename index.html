@@ -58,33 +58,15 @@
     .share-btn:hover {
         background-color: #1ebe57;
     }
-    .night-mode-btn {
-        background-color: #333;
-        color: white;
-        padding: 10px 20px;
-        font-size: 18px;
-        margin-top: 15px;
-        border: none;
-        border-radius: 10px;
-        cursor: pointer;
-        transition: 0.3s;
+    .visit-counter {
+        margin-top: 20px;
+        font-size: 16px;
+        color: #333;
     }
-    .night-mode-btn:hover {
-        background-color: #555;
-    }
-    .container.night {
-        background-color: #333;
-        color: white;
-    }
-    .container.night input, .container.night button {
-        background-color: #444;
-        color: white;
-        border: 1px solid #666;
-    }
-    .container.night #results, .container.night #total {
-        background: #444;
-        color: white;
-        border: 2px solid #666;
+    .version-info {
+        margin-top: 40px;
+        font-size: 14px;
+        color: #888;
     }
 </style>
 </head>
@@ -92,7 +74,8 @@
 <body>
 
 <div class="container">
-    <img src="logo.png" alt="شعار" style="width: 100px; margin-bottom: 20px;">
+    <!-- استبدال صورة الشعار بالصورة الجديدة -->
+    <img src="program_logo.png" alt="برنامج حساب الكميات" style="width: 100%; margin-bottom: 20px;">
     <div>
         <img src="ml.png" alt="ادخل حجم القالب" style="width: 200px;">
         <br>
@@ -109,12 +92,25 @@
     <div id="results" style="display:none;"></div>
     <div id="total" style="display:none;"></div>
     <button class="share-btn" onclick="shareWhatsApp()">مشاركة على واتساب</button>
-    <button class="night-mode-btn" onclick="toggleNightMode()">الوضع الليلي</button>
+    
+    <div class="visit-counter">
+        <p>عدد الزيارات: <span id="visitCount">0</span></p>
+    </div>
+
+    <div class="version-info">
+        <p>النسخة: 3.0</p>
+    </div>
 </div>
 
 <audio id="clickSound" src="https://www.soundjay.com/buttons/sounds/button-29.mp3"></audio>
 
 <script>
+// زيادة عداد الزيارات
+let visitCount = localStorage.getItem('visitCount') ? parseInt(localStorage.getItem('visitCount')) : 0;
+visitCount++;
+localStorage.setItem('visitCount', visitCount);
+document.getElementById('visitCount').innerText = visitCount;
+
 // صوت الضغط
 function playSound() {
     document.getElementById('clickSound').play();
@@ -182,11 +178,6 @@ function shareWhatsApp() {
     const message = `نتيجة حساب الكميات:\nجبس: ${gypsum} جرام\nإسمنت: ${cement} جرام\nماء: ${water} جرام\nالمجموع الكلي: ${sum} جرام\nمقدمة من برنامج حساب الخلطة.`;
     const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
-}
-
-// تغيير الوضع الليلي
-function toggleNightMode() {
-    document.querySelector('.container').classList.toggle('night');
 }
 </script>
 
