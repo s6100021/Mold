@@ -19,18 +19,18 @@
     }
 
     .container {
-      background: #ffffff; /* خلفية بيضاء */
+      background: #ffffff; 
       padding: 30px;
       border-radius: 20px;
-      box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2); /* تأثير الظل الخفيف */
+      box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2);
       text-align: center;
       width: 95%;
       max-width: 420px;
     }
 
     .logo {
-      width: 100%; /* تكبير الشعار */
-      max-width: 400px; /* تحديد الحد الأقصى لحجم الشعار */
+      width: 100%;
+      max-width: 400px;
       height: auto;
       margin-bottom: 20px;
     }
@@ -43,13 +43,13 @@
       background-color: #f1f1f1;
       padding: 20px;
       border-radius: 15px;
-      box-shadow: 0px 4px 12px rgba(0,0,0,0.1); /* ظل خفيف حول الفريم */
+      box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
       margin-bottom: 20px;
     }
 
     .input-frame img {
-      width: 80%; /* تكبير الصورة */
-      max-width: 300px; /* الحد الأقصى لحجم الصورة */
+      width: 80%;
+      max-width: 300px;
       height: auto;
       margin-bottom: 15px;
     }
@@ -79,18 +79,18 @@
     }
 
     .button-img:hover {
-      transform: scale(1.1); /* تأثير تكبير الأزرار عند التمرير عليها */
+      transform: scale(1.1);
     }
 
     .toggle-theme {
-      margin-top: 20px;
+      margin: 30px 0 10px 0;
       border: none;
       background: transparent;
       cursor: pointer;
     }
 
     .toggle-theme img {
-      width: 50px; /* تحديد حجم الصورة */
+      width: 80px; /* مكبر */
       height: auto;
     }
 
@@ -175,20 +175,15 @@
 <body>
 
 <div class="container">
-  <!-- تم تكبير الشعار هنا -->
   <img src="program_logo.png" alt="برنامج حساب كميات الخلطة" class="logo">
 
   <div class="input-frame">
-    <!-- استبدال النص "أدخل حجم القالب" بالصورة ml.png -->
     <img src="ml.png" alt="أدخل حجم القالب" class="button-img">
     <input type="number" id="volume" placeholder="مثلاً 308"><br>
   </div>
 
   <div class="buttons">
-    <!-- استبدال زر "احسب" بالصورة cont.png -->
     <img src="cont.png" alt="احسب" class="button-img" onclick="calculate()">
-
-    <!-- استبدال زر "مسح" بالصورة delet.png -->
     <img src="delet.png" alt="مسح" class="button-img" onclick="clearFields()">
   </div>
 
@@ -197,7 +192,7 @@
   <div class="trust-message" id="trustMessage">صب وتوكل على الله</div>
 </div>
 
-<!-- استبدال الزر النصي "الوضع الليلي" بالصورة dark.png -->
+<!-- زر الوضع الليلي أصبح بصورة ومكبر -->
 <button class="toggle-theme" onclick="toggleTheme()">
   <img src="dark.png" alt="الوضع الليلي">
 </button>
