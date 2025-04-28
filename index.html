@@ -141,14 +141,16 @@ function calculate() {
     const water = Math.round(244 * ratio);
     const total = gypsum + cement + water;
 
+    // تحديث النتائج
     document.getElementById('results').style.display = 'block';
     document.getElementById('total').style.display = 'block';
     document.getElementById('results').innerHTML = `
-        <p>الجبس: <span id="gypsum">0</span> جرام</p>
-        <p>الإسمنت: <span id="cement">0</span> جرام</p>
-        <p>الماء: <span id="water">0</span> جرام</p>
+        <p>الجبس: <span id="gypsum">${gypsum}</span> جرام</p>
+        <p>الإسمنت: <span id="cement">${cement}</span> جرام</p>
+        <p>الماء: <span id="water">${water}</span> جرام</p>
     `;
-    document.getElementById('total').innerHTML = `<strong>المجموع الكلي: <span id="sum">0</span> جرام</strong>`;
+    document.getElementById('total').innerHTML = `<strong>المجموع الكلي: <span id="sum">${total}</span> جرام</strong>`;
+    
     document.getElementById('shareWhatsApp').style.display = 'inline-block'; // إظهار زر الواتساب
 
     animateNumber(document.getElementById('gypsum'), 0, gypsum, 1000);
