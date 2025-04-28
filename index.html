@@ -36,7 +36,13 @@
         border-radius: 10px;
         margin-bottom: 5vw;
     }
-    
+
+    .input-frame img {
+        width: 50%;
+        display: block;
+        margin: 0 auto;
+    }
+
     input, button {
         padding: 3vw;
         margin: 3vw;
@@ -84,7 +90,6 @@
         border-radius: 10px;
         margin-top: 5vw;
     }
-
 </style>
 </head>
 
@@ -93,12 +98,18 @@
 <div class="container">
     <img src="program_logo.png" alt="برنامج حساب كميات الخلطة" class="program-logo">
     
+    <!-- إضافة صورة "ادخل حجم القالب" فوق مكان الإدخال -->
     <div class="input-frame">
+        <img src="ml.png" alt="ادخل حجم القالب">
         <input type="number" id="volume" placeholder="أدخل حجم القالب بالملي">
         
         <div>
-            <button onclick="calculate()">احسب</button>
-            <button onclick="resetForm()">مسح</button>
+            <button onclick="calculate()">
+                <img src="cont.png" alt="احسب">
+            </button>
+            <button onclick="resetForm()">
+                <img src="delet.png" alt="مسح">
+            </button>
         </div>
     </div>
 
