@@ -100,14 +100,27 @@
         margin: 0 2vw; /* توسيط الأزرار */
     }
 
+    /* إضافة فريم الأدعية العشوائية */
     #duaaBox {
-        margin-top: 30px;
+        margin-top: 20px;
         background: #f0f8ff;
         padding: 15px;
         border-radius: 10px;
         font-size: 5vw;
         color: #0078d4;
-        display: none;
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+
+    /* إضافة فريم رقم الإصدار في الأسفل */
+    #versionBox {
+        margin-top: 20px;
+        background: #e0e0e0;
+        padding: 10px;
+        font-size: 5vw;
+        color: #000;
+        border-radius: 10px;
     }
 </style>
 </head>
@@ -116,7 +129,7 @@
 
 <div class="container">
     <img src="program_logo.png" alt="برنامج حساب كميات الخلطة" class="program-logo">
-    
+
     <!-- إضافة صورة "ادخل حجم القالب" فوق مكان الإدخال -->
     <div class="input-frame">
         <img src="ml.png" alt="ادخل حجم القالب">
@@ -142,9 +155,14 @@
     </div>
     
     <button class="share-btn" onclick="shareWhatsApp()">مشاركة على واتساب</button>
+</div>
 
-    <!-- مربع الأدعية العشوائية -->
-    <div id="duaaBox"></div> <!-- هذا هو المربع الذي سيظهر فيه الدعاء العشوائي -->
+<!-- إضافة فريم الأدعية العشوائية في الأسفل -->
+<div id="duaaBox" style="display: none;"></div>
+
+<!-- إضافة فريم رقم الإصدار في الأسفل -->
+<div id="versionBox">
+    <p>رقم الإصدار: 1.0</p>
 </div>
 
 <audio id="clickSound" src="https://www.soundjay.com/buttons/sounds/button-29.mp3"></audio>
@@ -201,7 +219,7 @@ function resetForm() {
     document.getElementById('results').style.display = 'none';
     document.getElementById('total').style.display = 'none';
     document.querySelector('.share-btn').style.display = 'none';
-    document.getElementById('duaaBox').style.display = 'none'; // إخفاء الدعاء العشوائي
+    document.getElementById('duaaBox').style.display = 'none'; // إخفاء الدعاء بعد المسح
 }
 
 // مشاركة النتائج عبر واتساب
@@ -216,18 +234,18 @@ function shareWhatsApp() {
     window.open(whatsappUrl, '_blank');
 }
 
-// عرض دعاء عشوائي
+// دالة عرض الدعاء العشوائي
+const duaaList = [
+    "اللهم اجعل هذا العمل خالصًا لوجهك الكريم.",
+    "اللهم ارزقني رزقًا مباركًا.",
+    "اللهم سهل لنا الأمور ويسر لنا الطريق.",
+    "اللهم اجعل يومنا هذا خيرًا من أمس."
+];
+
 function showRandomDuaa() {
-    const duaaList = [
-        'اللهم اجعلنا من أهل الجنة.',
-        'اللهم ارزقنا الصحة والعافية.',
-        'اللهم اجعلنا من الشاكرين.',
-        'اللهم فرج همنا وغمنا.',
-        'اللهم اجعلنا من الذين يسيرون في طريقك.',
-    ];
-    const randomIndex = Math.floor(Math.random() * duaaList.length);
-    document.getElementById('duaaBox').innerText = duaaList[randomIndex];
+    const randomDuaa = duaaList[Math.floor(Math.random() * duaaList.length)];
     document.getElementById('duaaBox').style.display = 'block';
+    document.getElementById('duaaBox').innerText = randomDuaa;
 }
 </script>
 
