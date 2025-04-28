@@ -28,26 +28,29 @@
       max-width: 420px;
     }
 
-    .logo {
-      width: 100%;
-      max-width: 350px;
-      height: auto;
-      margin: 0 auto 20px;
-      display: block;
+    .input-frame {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-color: #f1f1f1;
+      padding: 20px;
       border-radius: 15px;
-      box-shadow: 0px 4px 12px rgba(0,0,0,0.3); /* إضافة ظل خفيف للصورة */
+      box-shadow: 0px 4px 12px rgba(0,0,0,0.1); /* ظل خفيف حول الفريم */
+      margin-bottom: 20px;
     }
 
-    label {
-      font-size: 20px;
-      color: #333;
-      display: none; /* إخفاء النص القديم */
+    .input-frame img {
+      width: 80%; /* تكبير الصورة */
+      max-width: 300px; /* الحد الأقصى لحجم الصورة */
+      height: auto;
+      margin-bottom: 15px;
     }
 
     input {
       padding: 15px;
       font-size: 18px;
-      width: 90%;
+      width: 80%;
       margin-top: 15px;
       margin-bottom: 20px;
       border-radius: 10px;
@@ -172,10 +175,11 @@
 <div class="container">
   <img src="program_logo.png" alt="برنامج حساب كميات الخلطة" class="logo">
 
-  <!-- استبدال النص بصورة "ml.png" -->
-  <img src="ml.png" alt="أدخل حجم القالب" class="button-img">
-
-  <input type="number" id="volume" placeholder="مثلاً 308"><br>
+  <div class="input-frame">
+    <!-- استبدال النص "أدخل حجم القالب" بالصورة ml.png -->
+    <img src="ml.png" alt="أدخل حجم القالب" class="button-img">
+    <input type="number" id="volume" placeholder="مثلاً 308"><br>
+  </div>
 
   <div class="buttons">
     <!-- استبدال زر "احسب" بالصورة cont.png -->
