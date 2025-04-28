@@ -62,13 +62,14 @@
 
     button {
       padding: 15px 30px;
-      font-size: 18px;
+      font-size: 20px;
+      font-weight: bold;
       background-color: #00bcd4;
       color: #333;
       border: none;
       border-radius: 50px;
       cursor: pointer;
-      margin: 5px;
+      margin: 8px;
       transition: background 0.3s, color 0.3s;
     }
 
@@ -78,13 +79,12 @@
     }
 
     .toggle-theme {
-      position: absolute;
-      top: 10px;
-      right: 10px;
+      margin-top: 20px;
       background-color: #4caf50;
       color: white;
-      padding: 8px 15px;
-      font-size: 14px;
+      padding: 12px 25px;
+      font-size: 18px;
+      font-weight: bold;
       border-radius: 30px;
       border: none;
       cursor: pointer;
@@ -171,13 +171,10 @@
     .dark-mode .trust-message {
       background-color: rgba(50, 100, 50, 0.7);
     }
-
   </style>
 </head>
 
 <body>
-
-<button class="toggle-theme" onclick="toggleTheme()">الوضع الليلي</button>
 
 <div class="container">
   <h1>برنامج حساب كميات الخلطة</h1>
@@ -187,13 +184,15 @@
 
   <div class="buttons">
     <button onclick="calculate()">احسب</button>
-    <button onclick="clearFields()">تفريغ</button>
+    <button onclick="clearFields()">مسح</button>
   </div>
 
   <div class="result" id="result"></div>
   <div class="total" id="total"></div>
   <div class="trust-message" id="trustMessage">صب وتوكل على الله</div>
 </div>
+
+<button class="toggle-theme" onclick="toggleTheme()">الوضع الليلي</button>
 
 <div class="visitor-counter" id="visitorCounter"></div>
 <div class="update-version">الإصدار: 2.9</div>
