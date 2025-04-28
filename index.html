@@ -13,23 +13,19 @@
       flex-direction: column;
       align-items: center;
       min-height: 100vh;
-      background: linear-gradient(135deg, #2e3b4e, #1f2a38, #374151); /* خلفية داكنة ومتدرجة */
-      color: white;
+      background-color: #ffffff; /* خلفية بيضاء */
+      color: #333;
       transition: background 0.5s, color 0.5s;
     }
 
     .container {
-      background: rgba(255, 255, 255, 0.2); /* خلفية شفافة لمنطقة المحتوى */
+      background: #ffffff; /* خلفية بيضاء */
       padding: 30px;
       border-radius: 20px;
-      box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.18);
+      box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2); /* تأثير الظل الخفيف */
       text-align: center;
       width: 95%;
       max-width: 420px;
-      transition: background 0.5s, color 0.5s;
     }
 
     .logo {
@@ -39,12 +35,12 @@
       margin: 0 auto 20px;
       display: block;
       border-radius: 15px;
-      box-shadow: 0px 4px 12px rgba(0,0,0,0.5);
+      box-shadow: 0px 4px 12px rgba(0,0,0,0.3); /* إضافة ظل خفيف للصورة */
     }
 
     label {
       font-size: 20px;
-      color: #ffffff;
+      color: #333;
     }
 
     input {
@@ -55,8 +51,8 @@
       margin-bottom: 20px;
       border-radius: 10px;
       border: 2px solid #00bcd4;
-      background-color: rgba(255,255,255,0.2);
-      color: white;
+      background-color: rgba(255,255,255,0.8);
+      color: #333;
     }
 
     .buttons {
@@ -95,8 +91,8 @@
     .result, .total {
       margin-top: 20px;
       font-size: 20px;
-      color: #fff;
-      background-color: rgba(255, 255, 255, 0.15);
+      color: #333;
+      background-color: rgba(0, 188, 212, 0.1);
       padding: 20px;
       border-radius: 10px;
       border: 2px solid #00bcd4;
@@ -108,7 +104,7 @@
 
     .total {
       font-size: 22px;
-      background-color: rgba(255, 255, 255, 0.2);
+      background-color: rgba(0, 188, 212, 0.15);
       border-color: #2196f3;
     }
 
@@ -122,14 +118,13 @@
     .visitor-counter, .update-version {
       margin-top: 20px;
       font-size: 16px;
-      background-color: rgba(255,255,255,0.15);
+      background-color: rgba(0, 188, 212, 0.1);
       padding: 10px;
       border-radius: 10px;
       border: 2px solid #00bcd4;
       width: 90%;
       max-width: 250px;
       text-align: center;
-      color: white;
     }
 
     .trust-message {
