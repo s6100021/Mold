@@ -33,10 +33,12 @@
       transition: background 0.5s, color 0.5s;
     }
 
-    h1 {
-      color: #00bcd4;
+    .logo {
+      width: 100%;
+      max-width: 300px;
       margin-bottom: 20px;
-      font-size: 30px;
+      border-radius: 15px;
+      box-shadow: 0px 4px 12px rgba(0,0,0,0.5);
     }
 
     label {
@@ -177,7 +179,7 @@
 <body>
 
 <div class="container">
-  <h1>برنامج حساب كميات الخلطة</h1>
+  <img src="program_logo.png" alt="برنامج حساب كميات الخلطة" class="logo">
 
   <label>أدخل حجم القالب (مل):</label><br>
   <input type="number" id="volume" placeholder="مثلاً 308"><br>
