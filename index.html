@@ -58,6 +58,34 @@
     .share-btn:hover {
         background-color: #1ebe57;
     }
+    .night-mode-btn {
+        background-color: #333;
+        color: white;
+        padding: 10px 20px;
+        font-size: 18px;
+        margin-top: 15px;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+    .night-mode-btn:hover {
+        background-color: #555;
+    }
+    .container.night {
+        background-color: #333;
+        color: white;
+    }
+    .container.night input, .container.night button {
+        background-color: #444;
+        color: white;
+        border: 1px solid #666;
+    }
+    .container.night #results, .container.night #total {
+        background: #444;
+        color: white;
+        border: 2px solid #666;
+    }
 </style>
 </head>
 
@@ -81,6 +109,7 @@
     <div id="results" style="display:none;"></div>
     <div id="total" style="display:none;"></div>
     <button class="share-btn" onclick="shareWhatsApp()">مشاركة على واتساب</button>
+    <button class="night-mode-btn" onclick="toggleNightMode()">الوضع الليلي</button>
 </div>
 
 <audio id="clickSound" src="https://www.soundjay.com/buttons/sounds/button-29.mp3"></audio>
@@ -153,6 +182,11 @@ function shareWhatsApp() {
     const message = `نتيجة حساب الكميات:\nجبس: ${gypsum} جرام\nإسمنت: ${cement} جرام\nماء: ${water} جرام\nالمجموع الكلي: ${sum} جرام\nمقدمة من برنامج حساب الخلطة.`;
     const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
+}
+
+// تغيير الوضع الليلي
+function toggleNightMode() {
+    document.querySelector('.container').classList.toggle('night');
 }
 </script>
 
