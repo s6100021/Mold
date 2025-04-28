@@ -1,314 +1,161 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <title>برنامج حساب كميات الخلطة</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>حساب كميات الخلطة</title>
+<style>
     body {
-      font-family: 'Cairo', sans-serif;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: 100vh;
-      background-color: #ffffff;
-      color: #333;
-      transition: background 0.5s, color 0.5s;
+        font-family: 'Cairo', sans-serif;
+        background-color: #ffffff;
+        margin: 0;
+        padding: 0;
+        text-align: center;
     }
-
     .container {
-      background: #ffffff;
-      padding: 30px;
-      border-radius: 20px;
-      box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2);
-      text-align: center;
-      width: 95%;
-      max-width: 420px;
-      margin-top: 20px;
-    }
-
-    .logo {
-      width: 100%;
-      max-width: 400px;
-      height: auto;
-      margin-bottom: 20px;
-    }
-
-    .input-frame {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background-color: #f1f1f1;
-      padding: 20px;
-      border-radius: 15px;
-      box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
-      margin-bottom: 20px;
-    }
-
-    .input-frame img {
-      width: 80%;
-      max-width: 300px;
-      height: auto;
-      margin-bottom: 15px;
-    }
-
-    input {
-      padding: 15px;
-      font-size: 18px;
-      width: 80%;
-      margin-top: 15px;
-      margin-bottom: 20px;
-      border-radius: 10px;
-      border: 2px solid #00bcd4;
-      background-color: rgba(255,255,255,0.8);
-      color: #333;
-    }
-
-    .buttons {
-      margin-top: 10px;
-    }
-
-    .button-img {
-      width: 120px;
-      height: auto;
-      cursor: pointer;
-      margin: 10px;
-      transition: transform 0.2s;
-    }
-
-    .button-img:hover {
-      transform: scale(1.1);
-    }
-
-    .toggle-theme {
-      margin: 30px 0 10px 0;
-      border: none;
-      background: transparent;
-      cursor: pointer;
-    }
-
-    .toggle-theme img {
-      width: 120px;
-      height: auto;
-      transition: all 0.3s ease;
-      filter: drop-shadow(0 0 10px rgba(0,0,0,0.3));
-    }
-
-    .toggle-theme img:hover {
-      filter: drop-shadow(0 0 15px rgba(0, 188, 212, 0.7));
-      transform: scale(1.1);
-    }
-
-    .result, .total {
-      margin-top: 20px;
-      font-size: 20px;
-      color: #333;
-      background-color: rgba(0, 188, 212, 0.1);
-      padding: 20px;
-      border-radius: 10px;
-      border: 2px solid #00bcd4;
-      opacity: 0;
-      transform: scale(0.8);
-      animation: fadeInZoom 0.8s forwards;
-      animation-delay: 0.3s;
-    }
-
-    .total {
-      font-size: 22px;
-      background-color: rgba(0, 188, 212, 0.15);
-      border-color: #2196f3;
-    }
-
-    @keyframes fadeInZoom {
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-
-    .visitor-counter, .update-version {
-      margin-top: 20px;
-      font-size: 16px;
-      background-color: rgba(0, 188, 212, 0.1);
-      padding: 10px;
-      border-radius: 10px;
-      border: 2px solid #00bcd4;
-      width: 90%;
-      max-width: 250px;
-      text-align: center;
-    }
-
-    .trust-message {
-      margin-top: 20px;
-      font-size: 20px;
-      color: #4caf50;
-      background-color: rgba(255, 255, 255, 0.1);
-      padding: 15px;
-      border-radius: 10px;
-      border: 2px dashed #66bb6a;
-      width: 90%;
-      display: none;
-      text-align: center;
-    }
-
-    .dark-mode {
-      background: linear-gradient(135deg, #1c1c1c, #2c2c2c);
-      color: #eee;
-    }
-
-    .dark-mode .container {
-      background: rgba(50, 50, 50, 0.7);
-    }
-
-    .dark-mode input {
-      background-color: rgba(80, 80, 80, 0.7);
-      color: white;
-      border-color: #66bb6a;
-    }
-
-    .dark-mode .result, .dark-mode .total {
-      background-color: rgba(70,70,70,0.7);
-      color: white;
-    }
-
-    .dark-mode .trust-message {
-      background-color: rgba(50, 100, 50, 0.7);
-    }
-
-    @media (max-width: 768px) {
-      .container {
-        width: 90%;
+        max-width: 600px;
+        margin: 30px auto;
+        background: #f9f9f9;
         padding: 20px;
-      }
-      input {
-        width: 90%;
-      }
-      .button-img {
-        width: 100px;
-      }
-      .toggle-theme img {
-        width: 100px;
-      }
+        border-radius: 15px;
+        box-shadow: 0 0 10px #ccc;
     }
-
-    @media (max-width: 480px) {
-      .container {
-        width: 95%;
-        padding: 15px;
-      }
-      input {
-        width: 95%;
-        font-size: 16px;
-      }
-      .button-img {
-        width: 90px;
-      }
-      .toggle-theme img {
-        width: 90px;
-      }
-      .result, .total {
+    input, button {
+        padding: 10px;
+        margin: 10px;
         font-size: 18px;
-        padding: 15px;
-      }
+        border-radius: 10px;
+        border: 1px solid #ddd;
     }
-  </style>
+    button {
+        cursor: pointer;
+        font-weight: bold;
+        background-color: #4CAF50;
+        color: white;
+        transition: 0.3s;
+    }
+    button:hover {
+        background-color: #45a049;
+    }
+    #results, #total {
+        margin-top: 20px;
+        background: #e0ffe0;
+        padding: 15px;
+        border: 2px solid green;
+        border-radius: 10px;
+    }
+    .share-btn {
+        background-color: #25D366;
+        color: white;
+        padding: 10px 20px;
+        font-size: 18px;
+        margin-top: 15px;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+    .share-btn:hover {
+        background-color: #1ebe57;
+    }
+</style>
 </head>
 
 <body>
 
 <div class="container">
-  <img src="program_logo.png" alt="برنامج حساب كميات الخلطة" class="logo">
-
-  <div class="input-frame">
-    <img src="ml.png" alt="أدخل حجم القالب" class="button-img">
-    <input type="number" id="volume" placeholder="مثلاً 308"><br>
-  </div>
-
-  <div class="buttons">
-    <img src="cont.png" alt="احسب" class="button-img" onclick="calculate()">
-    <img src="delet.png" alt="مسح" class="button-img" onclick="clearFields()">
-  </div>
-
-  <div class="result" id="result"></div>
-  <div class="total" id="total"></div>
-  <div class="trust-message" id="trustMessage">صب وتوكل على الله</div>
+    <img src="logo.png" alt="شعار" style="width: 100px; margin-bottom: 20px;">
+    <div>
+        <img src="ml.png" alt="ادخل حجم القالب" style="width: 200px;">
+        <br>
+        <input type="number" id="volume" placeholder="أدخل حجم القالب بالملي">
+    </div>
+    <div>
+        <button onclick="calculate()" id="calcButton">
+            <img src="cont.png" alt="احسب" style="height: 30px;">
+        </button>
+        <button onclick="resetForm()" id="resetButton">
+            <img src="delet.png" alt="مسح" style="height: 30px;">
+        </button>
+    </div>
+    <div id="results" style="display:none;"></div>
+    <div id="total" style="display:none;"></div>
+    <!-- زر المشاركة على واتساب بدون صورة -->
+    <button class="share-btn" onclick="shareWhatsApp()">مشاركة على واتساب</button>
+    <p>الإصدار: 3.0</p>
 </div>
 
-<button class="toggle-theme" onclick="toggleTheme()">
-  <img src="dark.png" alt="الوضع الليلي">
-</button>
-
-<div class="visitor-counter" id="visitorCounter"></div>
-<div class="update-version">الإصدار: 2.9</div>
+<audio id="clickSound" src="button-29.mp3"></audio>
 
 <script>
+// صوت الضغط
+function playSound() {
+    document.getElementById('clickSound').play();
+}
+
+// تأثير العداد
+function animateNumber(element, start, end, duration) {
+    let range = end - start;
+    let current = start;
+    let increment = range / (duration / 20);
+    let timer = setInterval(function() {
+        current += increment;
+        element.innerText = Math.floor(current);
+        if ((increment > 0 && current >= end) || (increment < 0 && current <= end)) {
+            element.innerText = end;
+            clearInterval(timer);
+        }
+    }, 20);
+}
+
+// حساب النتائج
 function calculate() {
-  var volume = document.getElementById("volume").value;
-  if(volume <= 0){
-    alert("من فضلك أدخل حجم صحيح.");
-    return;
-  }
-  var ratio = volume / 300;
-  var gypsum = 280 * ratio;
-  var cement = 26 * ratio;
-  var waterMl = 244 * ratio;
-  var waterGrams = waterMl;
-  var totalWeight = gypsum + cement + waterGrams;
+    playSound();
+    const volume = parseFloat(document.getElementById('volume').value);
+    if (isNaN(volume)) {
+        alert("الرجاء إدخال رقم صحيح لحجم القالب.");
+        return;
+    }
+    const ratio = volume / 300;
+    const gypsum = Math.round(280 * ratio);
+    const cement = Math.round(26 * ratio);
+    const water = Math.round(244 * ratio);
+    const total = gypsum + cement + water;
 
-  document.getElementById("result").innerHTML = `
-    <p><strong>كمية الجبس:</strong> ${gypsum.toFixed(2)} جرام</p>
-    <p><strong>كمية الأسمنت:</strong> ${cement.toFixed(2)} جرام</p>
-    <p><strong>كمية الماء:</strong> ${waterGrams.toFixed(2)} جرام</p>
-  `;
+    document.getElementById('results').style.display = 'block';
+    document.getElementById('total').style.display = 'block';
+    document.getElementById('results').innerHTML = `
+        <p>الجبس: <span id="gypsum">0</span> جرام</p>
+        <p>الإسمنت: <span id="cement">0</span> جرام</p>
+        <p>الماء: <span id="water">0</span> جرام</p>
+    `;
+    document.getElementById('total').innerHTML = `<strong>المجموع الكلي: <span id="sum">0</span> جرام</strong>`;
 
-  document.getElementById("total").innerHTML = `
-    <strong>المجموع الكلي:</strong> ${totalWeight.toFixed(2)} جرام
-  `;
-
-  var phrases = [
-    "صب وتوكل على الله",
-    "أبشر، الأمور طيبة",
-    "لا تخاف، شغلك مضبوط",
-    "توكل على الله وأبدأ",
-    "نتيجتك ممتازة، شد حيلك",
-    "موفق بإذن الله"
-  ];
-  var randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
-  document.getElementById("trustMessage").innerHTML = randomPhrase;
-  document.getElementById("trustMessage").style.display = "block";
-
-  document.getElementById("result").style.animation = "fadeInZoom 0.8s forwards";
-  document.getElementById("total").style.animation = "fadeInZoom 0.8s forwards";
+    animateNumber(document.getElementById('gypsum'), 0, gypsum, 1000);
+    animateNumber(document.getElementById('cement'), 0, cement, 1000);
+    animateNumber(document.getElementById('water'), 0, water, 1000);
+    animateNumber(document.getElementById('sum'), 0, total, 1000);
 }
 
-function clearFields() {
-  document.getElementById("volume").value = "";
-  document.getElementById("result").innerHTML = "";
-  document.getElementById("total").innerHTML = "";
-  document.getElementById("trustMessage").style.display = "none";
+// إعادة تعيين المدخلات
+function resetForm() {
+    playSound();
+    document.getElementById('volume').value = '';
+    document.getElementById('results').style.display = 'none';
+    document.getElementById('total').style.display = 'none';
 }
 
-function toggleTheme() {
-  document.body.classList.toggle('dark-mode');
-}
+// مشاركة بالواتساب
+function shareWhatsApp() {
+    const gypsum = document.getElementById('gypsum').innerText;
+    const cement = document.getElementById('cement').innerText;
+    const water = document.getElementById('water').innerText;
+    const sum = document.getElementById('sum').innerText;
 
-function updateVisitorCounter() {
-  if (localStorage.getItem('visitorCount')) {
-    var count = parseInt(localStorage.getItem('visitorCount'));
-    count += 1;
-    localStorage.setItem('visitorCount', count);
-  } else {
-    localStorage.setItem('visitorCount', 1);
-  }
-  document.getElementById('visitorCounter').innerHTML =
-    "عدد زياراتك للصفحة: " + localStorage.getItem('visitorCount');
+    const message = `نتيجة حساب الكميات:\nجبس: ${gypsum} جرام\nإسمنت: ${cement} جرام\nماء: ${water} جرام\nالمجموع الكلي: ${sum} جرام\nمقدمة من برنامج حساب الخلطة.`;
+    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
 }
-
-updateVisitorCounter();
 </script>
 
 </body>
