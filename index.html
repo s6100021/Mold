@@ -25,41 +25,38 @@
         margin: 10px;
         font-size: 18px;
         border-radius: 10px;
-        border: none;
+        border: none; /* إزالة الحدود */
     }
     button {
         cursor: pointer;
         font-weight: bold;
-        background-color: #4CAF50;
+        background-color: #4CAF50; /* اللون الأخضر للأزرار */
         color: white;
         transition: 0.3s;
     }
     button:hover {
-        background-color: #45a049;
+        background-color: #45a049; /* التغيير عند التحويم */
     }
     #results, #total {
         margin-top: 20px;
-        background: #e0ffe0;
+        background: #ffffff; /* تغيير الخلفية إلى الأبيض */
         padding: 15px;
-        border: 2px solid green;
+        border: none; /* إزالة الإطار الأخضر */
         border-radius: 10px;
     }
-    .random-text {
-        margin-top: 20px;
-        background-color: #f9f9f9;
-        padding: 15px;
-        border: 2px solid #ccc;
-        border-radius: 10px;
-        display: none;
-    }
-    .footer {
-        margin-top: 30px;
-        font-size: 14px;
-        color: #555;
-    }
-    /* إزالة الحدود الأخضر حول الأزرار */
-    button img {
+    .share-btn {
+        background-color: #25D366;
+        color: white;
+        padding: 10px 20px;
+        font-size: 18px;
+        margin-top: 15px;
         border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+    .share-btn:hover {
+        background-color: #1ebe57;
     }
 </style>
 </head>
@@ -67,14 +64,12 @@
 <body>
 
 <div class="container">
-    <img src="program_logo.png" alt="شعار" style="width: 100%; margin-bottom: 20px;">
-    
+    <img src="program_logo.png" alt="برنامج حساب الكميات" style="width: 100%; margin-bottom: 20px;">
     <div>
         <img src="ml.png" alt="ادخل حجم القالب" style="width: 200px;">
         <br>
         <input type="number" id="volume" placeholder="أدخل حجم القالب بالملي">
     </div>
-
     <div>
         <button onclick="calculate()" id="calcButton">
             <img src="cont.png" alt="احسب" style="height: 30px;">
@@ -83,21 +78,22 @@
             <img src="delet.png" alt="مسح" style="height: 30px;">
         </button>
     </div>
-    
     <div id="results" style="display:none;"></div>
     <div id="total" style="display:none;"></div>
-    <div id="randomText" class="random-text"></div>
+    <button class="share-btn" onclick="shareWhatsApp()" style="display:none;">مشاركة على واتساب</button>
+    <div id="randomMessage" style="display:none;">كلمة عشوائية: لا تتوقف عن المحاولة!</div>
+    <div id="footer" style="margin-top: 30px;">
+        <p>إصدار: 3.0</p>
+        <p id="visitor-count">عدد الزوار: 0</p>
+    </div>
 </div>
 
-<div class="footer">
-    <p>الإصدار: 3.0</p>
-</div>
+<audio id="clickSound" src="https://www.soundjay.com/buttons/sounds/button-29.mp3"></audio>
 
 <script>
 // صوت الضغط
 function playSound() {
-    const clickSound = new Audio('https://www.soundjay.com/buttons/sounds/button-29.mp3');
-    clickSound.play();
+    document.getElementById('clickSound').play();
 }
 
 // تأثير العداد
@@ -131,21 +127,19 @@ function calculate() {
 
     document.getElementById('results').style.display = 'block';
     document.getElementById('total').style.display = 'block';
-    document.getElementById('randomText').style.display = 'block';
-
     document.getElementById('results').innerHTML = `
         <p>الجبس: <span id="gypsum">0</span> جرام</p>
         <p>الإسمنت: <span id="cement">0</span> جرام</p>
         <p>الماء: <span id="water">0</span> جرام</p>
     `;
     document.getElementById('total').innerHTML = `<strong>المجموع الكلي: <span id="sum">0</span> جرام</strong>`;
-    document.getElementById('randomText').innerHTML = `<p>${generateRandomText()}</p>`;
+    document.getElementById('shareWhatsApp').style.display = 'inline-block'; // إظهار زر الواتساب
 
     animateNumber(document.getElementById('gypsum'), 0, gypsum, 1000);
     animateNumber(document.getElementById('cement'), 0, cement, 1000);
     animateNumber(document.getElementById('water'), 0, water, 1000);
     animateNumber(document.getElementById('sum'), 0, total, 1000);
-    animateRandomText();
+    showRandomMessage(); // إظهار الرسالة العشوائية
 }
 
 // إعادة تعيين المدخلات
@@ -154,28 +148,41 @@ function resetForm() {
     document.getElementById('volume').value = '';
     document.getElementById('results').style.display = 'none';
     document.getElementById('total').style.display = 'none';
-    document.getElementById('randomText').style.display = 'none';
+    document.getElementById('shareWhatsApp').style.display = 'none'; // إخفاء زر الواتساب
+    document.getElementById('randomMessage').style.display = 'none'; // إخفاء الرسالة العشوائية
 }
 
-// توليد النص العشوائي
-function generateRandomText() {
-    const texts = [
-        "كل شيء تم حسابه بدقة، استمتع بالخلاطة!",
-        "تحقق من الكميات وابدأ في العمل!",
-        "تمت الحسابات بنجاح، حان الوقت للعمل!",
-        "الحسابات جاهزة، الآن وقت التنفيذ!"
+// مشاركة بالواتساب
+function shareWhatsApp() {
+    const gypsum = document.getElementById('gypsum').innerText;
+    const cement = document.getElementById('cement').innerText;
+    const water = document.getElementById('water').innerText;
+    const sum = document.getElementById('sum').innerText;
+
+    const message = `نتيجة حساب الكميات:\nجبس: ${gypsum} جرام\nإسمنت: ${cement} جرام\nماء: ${water} جرام\nالمجموع الكلي: ${sum} جرام\nمقدمة من برنامج حساب الخلطة.`;
+    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+}
+
+// تحديث عداد الزوار
+let visitorCount = 0;
+function updateVisitorCount() {
+    visitorCount++;
+    document.getElementById('visitor-count').innerText = `عدد الزوار: ${visitorCount}`;
+}
+updateVisitorCount(); // تحديث عداد الزوار عند فتح الصفحة
+
+// عرض رسالة عشوائية
+function showRandomMessage() {
+    const messages = [
+        'كل يوم هو فرصة جديدة!',
+        'اعمل بجد وحقق أهدافك!',
+        'كل شيء ممكن إذا آمنت بنفسك!',
+        'ابدأ اليوم لتحقيق النجاح!',
     ];
-    return texts[Math.floor(Math.random() * texts.length)];
-}
-
-// تأثير النص العشوائي
-function animateRandomText() {
-    const randomText = document.getElementById('randomText');
-    randomText.style.transition = "all 0.5s ease-in-out";
-    randomText.style.transform = "scale(1.1)";
-    setTimeout(function() {
-        randomText.style.transform = "scale(1)";
-    }, 500);
+    const randomIndex = Math.floor(Math.random() * messages.length);
+    document.getElementById('randomMessage').innerText = `كلمة عشوائية: ${messages[randomIndex]}`;
+    document.getElementById('randomMessage').style.display = 'block';
 }
 </script>
 
