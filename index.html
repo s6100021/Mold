@@ -41,6 +41,7 @@
     label {
       font-size: 20px;
       color: #333;
+      display: none; /* إخفاء النص القديم */
     }
 
     input {
@@ -171,7 +172,9 @@
 <div class="container">
   <img src="program_logo.png" alt="برنامج حساب كميات الخلطة" class="logo">
 
-  <label>أدخل حجم القالب (مل):</label><br>
+  <!-- استبدال النص بصورة "ml.png" -->
+  <img src="ml.png" alt="أدخل حجم القالب" class="button-img">
+
   <input type="number" id="volume" placeholder="مثلاً 308"><br>
 
   <div class="buttons">
