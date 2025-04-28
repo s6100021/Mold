@@ -84,19 +84,14 @@
 
     .toggle-theme {
       margin-top: 20px;
-      background-color: #4caf50;
-      color: white;
-      padding: 12px 25px;
-      font-size: 18px;
-      font-weight: bold;
-      border-radius: 30px;
       border: none;
+      background: transparent;
       cursor: pointer;
-      transition: background 0.3s;
     }
 
-    .toggle-theme:hover {
-      background-color: #388e3c;
+    .toggle-theme img {
+      width: 50px; /* تحديد حجم الصورة */
+      height: auto;
     }
 
     .result, .total {
@@ -202,7 +197,10 @@
   <div class="trust-message" id="trustMessage">صب وتوكل على الله</div>
 </div>
 
-<button class="toggle-theme" onclick="toggleTheme()">الوضع الليلي</button>
+<!-- استبدال الزر النصي "الوضع الليلي" بالصورة dark.png -->
+<button class="toggle-theme" onclick="toggleTheme()">
+  <img src="dark.png" alt="الوضع الليلي">
+</button>
 
 <div class="visitor-counter" id="visitorCounter"></div>
 <div class="update-version">الإصدار: 2.9</div>
