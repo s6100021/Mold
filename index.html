@@ -80,6 +80,7 @@
         border-radius: 10px;
         cursor: pointer;
         display: none;
+        margin: 0 auto;
     }
     .share-btn:hover {
         background-color: #1ebe57;
@@ -98,6 +99,12 @@
 
     .button-container button {
         margin: 0 2vw; /* توسيط الأزرار */
+    }
+
+    /* توسيط زر مشاركة الواتساب */
+    .share-btn {
+        display: block;
+        margin: 20px auto;
     }
 </style>
 </head>
@@ -131,12 +138,18 @@
         <strong>المجموع الكلي: <span id="sum">0</span> جرام</strong>
     </div>
     
+    <!-- زر مشاركة الواتساب في وسط الصفحة بعد الحساب -->
     <button class="share-btn" onclick="shareWhatsApp()">مشاركة على واتساب</button>
 </div>
 
 <audio id="clickSound" src="https://www.soundjay.com/buttons/sounds/button-29.mp3"></audio>
 
 <script>
+// صوت الضغط
+function playSound() {
+    document.getElementById('clickSound').play();
+}
+
 // حساب نتائج العداد
 function animateNumber(element, start, end, duration) {
     let range = end - start;
@@ -154,6 +167,7 @@ function animateNumber(element, start, end, duration) {
 
 // حساب الكميات عند الضغط على زر "احسب"
 function calculate() {
+    playSound();
     const volume = parseFloat(document.getElementById('volume').value);
     if (isNaN(volume)) {
         alert("الرجاء إدخال رقم صحيح لحجم القالب.");
@@ -181,6 +195,7 @@ function calculate() {
 
 // إعادة تعيين المدخلات عند الضغط على "مسح"
 function resetForm() {
+    playSound();
     document.getElementById('volume').value = '';
     document.getElementById('results').style.display = 'none';
     document.getElementById('total').style.display = 'none';
