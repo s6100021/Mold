@@ -1,161 +1,157 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>برنامج حساب كميات الخلطة</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
-<style>
-    body {
-        font-family: 'Cairo', sans-serif;
-        margin: 0;
-        padding: 0;
-        text-align: center;
-    }
-    .program-header {
-        width: 100%;
-        height: auto;
-    }
-    .footer-img {
-        width: 100%;
-        height: auto;
-        margin-top: 20px;
-    }
-    .card-custom {
-        padding: 20px;
-        border-radius: 15px;
-        margin: 20px auto;
-    }
-</style>
+    <meta charset="UTF-8">
+    <title>حساب كميات الخلطة</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header img {
+            width: 100%;
+            height: auto;
+        }
+        .calculator-form {
+            margin: 20px;
+        }
+        .calculator-form label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        .calculator-form input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            box-sizing: border-box;
+        }
+        .calculator-form button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .result {
+            margin: 20px;
+            padding: 20px;
+            background: #f1f1f1;
+            border: 1px solid #ddd;
+        }
+        .random-prayer {
+            margin: 20px;
+            padding: 15px;
+            background: #fff3cd;
+            border: 1px solid #ffeeba;
+            font-style: italic;
+        }
+        .whatsapp-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+        }
+        .advice-box {
+            margin: 20px;
+            padding: 20px;
+            background-color: #e9ecef;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+        }
+        .version-text {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 14px;
+            color: #6c757d;
+        }
+        .footer {
+            display: block;
+            margin: 0 auto;
+            width: 100%;
+            max-width: 400px;
+        }
+    </style>
 </head>
-
 <body>
 
-<!-- الهيدر -->
-<img src="head.png" alt="هيدر برنامج حساب الكميات" class="program-header">
+<header>
+    <img src="head.png" alt="رأس الصفحة">
+</header>
 
-<div class="container">
-
-    <!-- مربع الإدخال -->
-    <div class="card card-custom bg-light">
-        <img src="ml.png" alt="أدخل حجم القالب" class="img-fluid mb-3">
-        <input type="number" id="volume" class="form-control mb-3" placeholder="أدخل حجم القالب بالملي">
-        
-        <div class="d-flex justify-content-center">
-            <button onclick="calculate()" class="btn btn-primary m-2">احسب</button>
-            <button onclick="resetForm()" class="btn btn-danger m-2">مسح</button>
-        </div>
-    </div>
-
-    <!-- النتائج -->
-    <div id="results" class="card card-custom bg-success text-white" style="display:none;">
-        <p>الجبس: <span id="gypsum">0</span> جرام</p>
-        <p>الإسمنت: <span id="cement">0</span> جرام</p>
-        <p>الماء: <span id="water">0</span> جرام</p>
-    </div>
-
-    <div id="total" class="card card-custom bg-warning" style="display:none;">
-        <strong>المجموع الكلي: <span id="sum">0</span> جرام</strong>
-    </div>
-
-    <!-- مربع الأدعية -->
-    <div id="dua-frame" class="card card-custom bg-info text-white">
-        <p id="dua-text" class="mb-0">دعاء اليوم</p>
-    </div>
-
-    <!-- مربع المعلومات -->
-    <div id="info-frame" class="card card-custom bg-secondary text-white">
-        <p id="info-text" class="mb-0">معلومة اليوم</p>
-    </div>
-
-    <!-- رقم الإصدار والحقوق -->
-    <div class="mt-4">
-        <p>الإصدار 4.0 - جميع الحقوق محفوظة ©</p>
-    </div>
-
+<div class="calculator-form">
+    <label for="volume">حجم الخلطة (م³):</label>
+    <input type="number" id="volume" name="volume" placeholder="أدخل حجم الخلطة">
+    
+    <label for="ratio">نسبة الرمل إلى الاسمنت (مثال: 3:1):</label>
+    <input type="text" id="ratio" name="ratio" placeholder="أدخل نسبة الخلطة">
+    
+    <button onclick="calculate()">احسب</button>
 </div>
 
-<!-- الفوتر -->
-<img src="footer.png" alt="فوتر البرنامج" class="footer-img">
+<div class="result" id="result">
+    النتائج ستظهر هنا بعد الحساب.
+</div>
 
-<audio id="clickSound" src="https://www.soundjay.com/buttons/sounds/button-29.mp3"></audio>
+<div class="random-prayer" id="prayer">
+    <!-- دعاء عشوائي سيظهر هنا -->
+</div>
+
+<a href="https://api.whatsapp.com/send?phone=YOUR_NUMBER" target="_blank">
+    <img src="whatsapp.png" alt="زر الواتساب" class="whatsapp-button">
+</a>
+
+<div class="advice-box">
+    <h2>معلومات ونصائح عن الخلطات</h2>
+    <ul>
+        <li>استخدم مواد بجودة عالية لتحسين المتانة.</li>
+        <li>التزم بنسب الخلطات الصحيحة كما هو محدد.</li>
+        <li>امزج المكونات جيدًا للحصول على النتائج المطلوبة.</li>
+    </ul>
+</div>
+
+<p class="version-text">الإصدار ٤.٠ - جميع الحقوق محفوظة</p>
+<img src="footer.png" alt="صورة التذييل" class="footer">
 
 <script>
-// أدعية عشوائية
-const duas = [
-    "اللهم يسر لي أمري ووفقني لما تحب وترضى.",
-    "اللهم اجعل عملي هذا خالصًا لوجهك الكريم.",
-    "رب اشرح لي صدري ويسر لي أمري.",
-    "اللهم ارزقني علما نافعًا ورزقًا طيبًا.",
-    "اللهم اجعلني مباركًا أينما كنت."
-];
-
-// معلومات عشوائية
-const infos = [
-    "للحصول على خلطة جبس قوية، استخدم نسبة 3 أجزاء جبس إلى 1 جزء ماء.",
-    "يفضل مزج الإسمنت بالماء البارد لتحسين قوة التماسك.",
-    "لعمل خلطة ترميم منزلية: امزج الجبس مع كمية قليلة من الأسمنت الأبيض.",
-    "استخدم الأسمنت الأبيض لملء الفجوات والشقوق في الحوائط.",
-    "للحصول على سطح أملس، قم بدهن القالب بزيت خفيف قبل صب الجبس.",
-    "مزج الجبس بسرعة يمنع تكتل المواد ويزيد قوة المنتج النهائي.",
-    "استخدم قالب سيليكون لصب الجبس لأشكال منزلية ديكورية جميلة."
-];
-
-// تشغيل دعاء ومعلومة عند تحميل الصفحة
-window.onload = function() {
-    const randomDua = duas[Math.floor(Math.random() * duas.length)];
-    document.getElementById('dua-text').innerText = randomDua;
-
-    const randomInfo = infos[Math.floor(Math.random() * infos.length)];
-    document.getElementById('info-text').innerText = randomInfo;
-};
-
-// تأثير تحريك الأرقام
-function animateNumber(element, start, end, duration) {
-    let range = end - start;
-    let current = start;
-    let increment = range / (duration / 20);
-    let timer = setInterval(function() {
-        current += increment;
-        element.innerText = Math.floor(current);
-        if ((increment > 0 && current >= end) || (increment < 0 && current <= end)) {
-            element.innerText = end;
-            clearInterval(timer);
+    function calculate() {
+        var volume = parseFloat(document.getElementById("volume").value);
+        var ratio = document.getElementById("ratio").value;
+        if (isNaN(volume) || volume <= 0) {
+            alert("يرجى إدخال حجم صالح.");
+            return;
         }
-    }, 20);
-}
-
-// حساب الكميات
-function calculate() {
-    const volume = parseFloat(document.getElementById('volume').value);
-    if (isNaN(volume)) {
-        alert("الرجاء إدخال رقم صحيح لحجم القالب.");
-        return;
+        var parts = ratio.split(":");
+        if (parts.length == 2) {
+            var sandPart = parseFloat(parts[0]);
+            var cementPart = parseFloat(parts[1]);
+            if (!isNaN(sandPart) && !isNaN(cementPart) && cementPart !== 0) {
+                var totalParts = sandPart + cementPart;
+                var sandQty = (volume * sandPart / totalParts).toFixed(2);
+                var cementQty = (volume * cementPart / totalParts).toFixed(2);
+                document.getElementById("result").innerHTML = 
+                    "كمية الرمل: " + sandQty + " م³، كمية الاسمنت: " + cementQty + " م³.";
+            } else {
+                alert("نسبة غير صالحة.");
+            }
+        } else {
+            alert("يرجى إدخال النسبة بالشكل الصحيح (مثال: 3:1).");
+        }
     }
-    document.getElementById('clickSound').play();
 
-    const ratio = volume / 300;
-    const gypsum = Math.round(280 * ratio);
-    const cement = Math.round(26 * ratio);
-    const water = Math.round(244 * ratio);
-    const total = gypsum + cement + water;
-
-    document.getElementById('results').style.display = 'block';
-    document.getElementById('total').style.display = 'block';
-
-    animateNumber(document.getElementById('gypsum'), 0, gypsum, 1000);
-    animateNumber(document.getElementById('cement'), 0, cement, 1000);
-    animateNumber(document.getElementById('water'), 0, water, 1000);
-    animateNumber(document.getElementById('sum'), 0, total, 1000);
-}
-
-// إعادة التعيين
-function resetForm() {
-    document.getElementById('volume').value = '';
-    document.getElementById('results').style.display = 'none';
-    document.getElementById('total').style.display = 'none';
-    document.getElementById('clickSound').play();
-}
+    // دعاء عشوائي
+    var prayers = [
+        "اللهم أعنا على ذكرك وشكرك وحسن عبادتك",
+        "اللهم افتح لي أبواب رحمتك",
+        "اللهم ارزقنا الإخلاص في القول والعمل"
+    ];
+    document.getElementById("prayer").innerHTML = prayers[Math.floor(Math.random() * prayers.length)];
 </script>
 
 </body>
