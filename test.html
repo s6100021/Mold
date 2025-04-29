@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>حاسبة كميات الخلطة</title>
   <style>
     body {
@@ -36,18 +36,20 @@
       align-items: center;
       flex-wrap: wrap;
       gap: 10px;
-    }
-    .input-section label {
-      font-size: 1.1em;
+      margin-top: 10px;
     }
     .input-section input {
-      width: 100px;
+      width: 120px;
       padding: 10px;
       font-size: 1em;
       border-radius: 8px;
       border: 1px solid #ccc;
     }
-    .input-section button {
+    .button-group {
+      display: flex;
+      gap: 10px;
+    }
+    .button-group button {
       padding: 10px 20px;
       font-size: 1em;
       border: 1px solid #ccc;
@@ -57,7 +59,7 @@
       border-radius: 8px;
       transition: 0.3s;
     }
-    .input-section button:hover {
+    .button-group button:hover {
       background-color: #eee;
     }
     .results {
@@ -99,49 +101,55 @@
       .input-section {
         flex-direction: column;
       }
+      .button-group {
+        flex-direction: column;
+        width: 100%;
+      }
+      .button-group button {
+        width: 100%;
+      }
     }
   </style>
 </head>
 <body>
 
-  <img src="head.png" alt="رأس الصفحة" class="header-img">
+<img src="head.png" alt="رأس الصفحة" class="header-img">
 
-  <div class="container">
-    <div class="input-frame">
-      <img src="ml.png" alt="ادخل حجم القالب">
-      <div class="input-section">
-        <label for="volume">أدخل الحجم:</label>
-        <input type="number" id="volume" placeholder="مثلاً: ٢٧٧ ملي">
+<div class="container">
+  <div class="input-frame">
+    <img src="ml.png" alt="ادخل حجم القالب">
+    <div class="input-section">
+      <input type="number" id="volume" placeholder="مثلاً: ٢٧٧ ملي" />
+      <div class="button-group">
         <button id="calc-btn">احسب</button>
         <button id="clear-btn">مسح</button>
       </div>
     </div>
-
-    <div class="results" id="results" style="display: none;">
-      <p>نتائج الخلطة:</p>
-      <p>الجبس: <span id="gypsum-result">0</span> جم</p>
-      <p>الإسمنت: <span id="cement-result">0</span> جم</p>
-      <p>الماء: <span id="water-result">0</span> مل</p>
-      <button id="whatsapp-btn">مشاركة على واتساب</button>
-    </div>
-
-    <div class="prayer-box" id="prayer-box">
-      <p id="prayer-text"></p>
-    </div>
-
-    <div class="tips-box" id="tips-box">
-      <p id="tips-text"></p>
-    </div>
-
-    <div class="footer-info">
-      <p>الإصدار 4.0 - جميع الحقوق محفوظة &copy;</p>
-    </div>
-
   </div>
 
-  <img src="footer.png" alt="صورة الفوتر" class="footer-img">
+  <div class="results" id="results" style="display: none;">
+    <p>نتائج الخلطة:</p>
+    <p>الجبس: <span id="gypsum-result">0</span> جم</p>
+    <p>الإسمنت: <span id="cement-result">0</span> جم</p>
+    <p>الماء: <span id="water-result">0</span> مل</p>
+    <button id="whatsapp-btn">مشاركة على واتساب</button>
+  </div>
 
-  <audio id="click-sound" src="click.mp3"></audio>
+  <div class="prayer-box" id="prayer-box">
+    <p id="prayer-text"></p>
+  </div>
+
+  <div class="tips-box" id="tips-box">
+    <p id="tips-text"></p>
+  </div>
+
+  <div class="footer-info">
+    <p>الإصدار 4.0 - جميع الحقوق محفوظة &copy;</p>
+  </div>
+</div>
+
+<img src="footer.png" alt="صورة الفوتر" class="footer-img">
+<audio id="click-sound" src="click.mp3"></audio>
 
 <script>
 const prayers = [
@@ -157,17 +165,13 @@ const tips = [
   "تأكد من نقاء الماء المستخدم لتحسين جودة الخلطة.",
   "التزم بالقياسات للحصول على أفضل نتائج."
 ];
-
-// دعاء ونصيحة عشوائية
 document.getElementById('prayer-text').textContent = prayers[Math.floor(Math.random() * prayers.length)];
 document.getElementById('tips-text').textContent = tips[Math.floor(Math.random() * tips.length)];
 
-// تشغيل الصوت
 function playClickSound() {
   document.getElementById('click-sound').play();
 }
 
-// عملية الحساب
 document.getElementById('calc-btn').addEventListener('click', function() {
   playClickSound();
   const vol = parseFloat(document.getElementById('volume').value);
@@ -183,7 +187,6 @@ document.getElementById('calc-btn').addEventListener('click', function() {
   animateValue('water-result', 0, water, 1000);
 });
 
-// عملية المسح
 document.getElementById('clear-btn').addEventListener('click', function() {
   playClickSound();
   document.getElementById('volume').value = '';
@@ -193,7 +196,6 @@ document.getElementById('clear-btn').addEventListener('click', function() {
   document.getElementById('water-result').textContent = '0';
 });
 
-// مشاركة على واتساب
 document.getElementById('whatsapp-btn').addEventListener('click', function() {
   playClickSound();
   const gypsum = document.getElementById('gypsum-result').textContent;
@@ -204,7 +206,6 @@ document.getElementById('whatsapp-btn').addEventListener('click', function() {
   window.open(url, '_blank');
 });
 
-// حركة الأرقام
 function animateValue(id, start, end, duration) {
   const element = document.getElementById(id);
   let startTimestamp = null;
