@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>حاسبة كميات الخلطة</title>
 
-  <!-- دعم PWA -->
+  <!-- رابط manifest وتسجيل Service Worker -->
   <link rel="manifest" href="manifest.json">
   <script>
     if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("sw.js").then(() =>
-        console.log("Service Worker مسجل")
-      );
+      navigator.serviceWorker.register("sw.js")
+        .then(() => console.log("Service Worker مسجل"))
+        .catch(err => console.log("فشل تسجيل Service Worker", err));
     }
   </script>
 
@@ -125,6 +125,7 @@
 </head>
 <body>
 
+<!-- الهيدر -->
 <img src="head.png" alt="رأس الصفحة" class="header-img">
 
 <div class="container">
@@ -161,11 +162,12 @@
   </div>
 </div>
 
+<!-- الفوتر -->
 <img src="footer.png" alt="صورة الفوتر" class="footer-img">
 <audio id="click-sound" src="click.mp3"></audio>
 
 <script>
-// دعم الأرقام العربية
+// تحويل الأرقام العربية إلى انجليزية
 function convertArabicToEnglish(str) {
   const arabicNums = '٠١٢٣٤٥٦٧٨٩';
   return str.replace(/[٠-٩]/g, d => arabicNums.indexOf(d));
