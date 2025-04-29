@@ -3,172 +3,114 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>حساب كميات الخلطة</title>
+<title>برنامج حساب كميات الخلطة</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
 <style>
     body {
         font-family: 'Cairo', sans-serif;
-        background-color: #ffffff;
         margin: 0;
         padding: 0;
         text-align: center;
     }
-    .container {
-        max-width: 100%;
-        margin: 30px auto;
-        background: #f9f9f9;
-        padding: 5vw;
-        border-radius: 15px;
-        box-shadow: 0 0 10px #ccc;
-        width: auto;
-    }
-
-    .program-logo {
+    .program-header {
         width: 100%;
-        max-width: 500px;
         height: auto;
-        display: block;
-        margin: 0 auto;
     }
-
-    .input-frame {
-        background-color: #f2f2f2;
-        padding: 5vw;
-        border-radius: 10px;
-        margin-bottom: 5vw;
-    }
-
-    .input-frame img {
-        width: 80%; /* زيادة الحجم */
-        display: block;
-        margin: 0 auto;
-    }
-
-    input, button {
-        padding: 3vw;
-        margin: 3vw;
-        font-size: 5vw;
-        border-radius: 10px;
-        border: 1px solid #ddd;
-    }
-    button {
-        cursor: pointer;
-        font-weight: bold;
-        background-color: transparent;
-        border: none;
-        padding: 0;
-    }
-    button img {
-        height: 10vw;
-        width: auto;
-    }
-    button:hover {
-        background-color: transparent;
-    }
-    #results, #total {
-        margin-top: 20px;
-        background: #e0ffe0;
-        padding: 15px;
-        border-radius: 10px;
-    }
-    .share-btn {
-        background-color: #25D366;
-        color: white;
-        padding: 5vw 10vw;
-        font-size: 5vw;
-        margin-top: 5vw;
-        border: none;
-        border-radius: 10px;
-        cursor: pointer;
-        display: none;
-    }
-    .share-btn:hover {
-        background-color: #1ebe57;
-    }
-    .footer-frame {
-        background-color: #f2f2f2;
-        padding: 5vw;
-        border-radius: 10px;
-        margin-top: 5vw;
-    }
-
-    /* توسيط الأزرار مع بعض */
-    .button-container {
-        text-align: center;
-    }
-
-    .button-container button {
-        margin: 0 2vw; /* توسيط الأزرار */
-    }
-
-    /* إضافة فريم الأدعية العشوائية */
-    #duaaBox {
-        margin-top: 20px;
-        background: #f0f8ff;
-        padding: 15px;
-        border-radius: 10px;
-        font-size: 5vw;
-        color: #0078d4;
-        display: block;
+    .footer-img {
         width: 100%;
-        text-align: center;
-    }
-
-    /* إضافة فريم رقم الإصدار في الأسفل */
-    #versionBox {
+        height: auto;
         margin-top: 20px;
-        background: #e0e0e0;
-        padding: 10px;
-        font-size: 5vw;
-        color: #000;
-        border-radius: 10px;
+    }
+    .card-custom {
+        padding: 20px;
+        border-radius: 15px;
+        margin: 20px auto;
     }
 </style>
 </head>
 
 <body>
 
-<div class="container">
-    <img src="program_logo.png" alt="برنامج حساب كميات الخلطة" class="program-logo">
+<!-- الهيدر -->
+<img src="head.png" alt="هيدر برنامج حساب الكميات" class="program-header">
 
-    <!-- إضافة صورة "ادخل حجم القالب" فوق مكان الإدخال -->
-    <div class="input-frame">
-        <img src="ml.png" alt="ادخل حجم القالب">
-        <input type="number" id="volume" placeholder="أدخل حجم القالب بالملي">
+<div class="container">
+
+    <!-- مربع الإدخال -->
+    <div class="card card-custom bg-light">
+        <img src="ml.png" alt="أدخل حجم القالب" class="img-fluid mb-3">
+        <input type="number" id="volume" class="form-control mb-3" placeholder="أدخل حجم القالب بالملي">
         
-        <div class="button-container">
-            <button onclick="calculate()">
-                <img src="cont.png" alt="احسب">
-            </button>
-            <button onclick="resetForm()">
-                <img src="delet.png" alt="مسح">
-            </button>
+        <div class="d-flex justify-content-center">
+            <button onclick="calculate()" class="btn btn-primary m-2">احسب</button>
+            <button onclick="resetForm()" class="btn btn-danger m-2">مسح</button>
         </div>
     </div>
 
-    <div id="results" style="display:none;">
+    <!-- النتائج -->
+    <div id="results" class="card card-custom bg-success text-white" style="display:none;">
         <p>الجبس: <span id="gypsum">0</span> جرام</p>
         <p>الإسمنت: <span id="cement">0</span> جرام</p>
         <p>الماء: <span id="water">0</span> جرام</p>
     </div>
-    <div id="total" style="display:none;">
+
+    <div id="total" class="card card-custom bg-warning" style="display:none;">
         <strong>المجموع الكلي: <span id="sum">0</span> جرام</strong>
     </div>
-    
-    <button class="share-btn" onclick="shareWhatsApp()">مشاركة على واتساب</button>
+
+    <!-- مربع الأدعية -->
+    <div id="dua-frame" class="card card-custom bg-info text-white">
+        <p id="dua-text" class="mb-0">دعاء اليوم</p>
+    </div>
+
+    <!-- مربع المعلومات -->
+    <div id="info-frame" class="card card-custom bg-secondary text-white">
+        <p id="info-text" class="mb-0">معلومة اليوم</p>
+    </div>
+
+    <!-- رقم الإصدار والحقوق -->
+    <div class="mt-4">
+        <p>الإصدار 4.0 - جميع الحقوق محفوظة ©</p>
+    </div>
+
 </div>
 
-<!-- إضافة فريم الأدعية العشوائية في الأسفل -->
-<div id="duaaBox" style="display: none;"></div>
-
-<!-- إضافة فريم رقم الإصدار في الأسفل -->
-<div id="versionBox">
-    <p>رقم الإصدار: 1.0</p>
-</div>
+<!-- الفوتر -->
+<img src="footer.png" alt="فوتر البرنامج" class="footer-img">
 
 <audio id="clickSound" src="https://www.soundjay.com/buttons/sounds/button-29.mp3"></audio>
 
 <script>
-// حساب نتائج العداد
+// أدعية عشوائية
+const duas = [
+    "اللهم يسر لي أمري ووفقني لما تحب وترضى.",
+    "اللهم اجعل عملي هذا خالصًا لوجهك الكريم.",
+    "رب اشرح لي صدري ويسر لي أمري.",
+    "اللهم ارزقني علما نافعًا ورزقًا طيبًا.",
+    "اللهم اجعلني مباركًا أينما كنت."
+];
+
+// معلومات عشوائية
+const infos = [
+    "للحصول على خلطة جبس قوية، استخدم نسبة 3 أجزاء جبس إلى 1 جزء ماء.",
+    "يفضل مزج الإسمنت بالماء البارد لتحسين قوة التماسك.",
+    "لعمل خلطة ترميم منزلية: امزج الجبس مع كمية قليلة من الأسمنت الأبيض.",
+    "استخدم الأسمنت الأبيض لملء الفجوات والشقوق في الحوائط.",
+    "للحصول على سطح أملس، قم بدهن القالب بزيت خفيف قبل صب الجبس.",
+    "مزج الجبس بسرعة يمنع تكتل المواد ويزيد قوة المنتج النهائي.",
+    "استخدم قالب سيليكون لصب الجبس لأشكال منزلية ديكورية جميلة."
+];
+
+// تشغيل دعاء ومعلومة عند تحميل الصفحة
+window.onload = function() {
+    const randomDua = duas[Math.floor(Math.random() * duas.length)];
+    document.getElementById('dua-text').innerText = randomDua;
+
+    const randomInfo = infos[Math.floor(Math.random() * infos.length)];
+    document.getElementById('info-text').innerText = randomInfo;
+};
+
+// تأثير تحريك الأرقام
 function animateNumber(element, start, end, duration) {
     let range = end - start;
     let current = start;
@@ -183,13 +125,14 @@ function animateNumber(element, start, end, duration) {
     }, 20);
 }
 
-// حساب الكميات عند الضغط على زر "احسب"
+// حساب الكميات
 function calculate() {
     const volume = parseFloat(document.getElementById('volume').value);
     if (isNaN(volume)) {
         alert("الرجاء إدخال رقم صحيح لحجم القالب.");
         return;
     }
+    document.getElementById('clickSound').play();
 
     const ratio = volume / 300;
     const gypsum = Math.round(280 * ratio);
@@ -200,52 +143,18 @@ function calculate() {
     document.getElementById('results').style.display = 'block';
     document.getElementById('total').style.display = 'block';
 
-    // تطبيق التأثير على الأرقام
     animateNumber(document.getElementById('gypsum'), 0, gypsum, 1000);
     animateNumber(document.getElementById('cement'), 0, cement, 1000);
     animateNumber(document.getElementById('water'), 0, water, 1000);
     animateNumber(document.getElementById('sum'), 0, total, 1000);
-
-    // إظهار زر المشاركة على واتساب
-    document.querySelector('.share-btn').style.display = 'block';
-
-    // عرض الدعاء العشوائي بعد الحساب
-    showRandomDuaa();
 }
 
-// إعادة تعيين المدخلات عند الضغط على "مسح"
+// إعادة التعيين
 function resetForm() {
     document.getElementById('volume').value = '';
     document.getElementById('results').style.display = 'none';
     document.getElementById('total').style.display = 'none';
-    document.querySelector('.share-btn').style.display = 'none';
-    document.getElementById('duaaBox').style.display = 'none'; // إخفاء الدعاء بعد المسح
-}
-
-// مشاركة النتائج عبر واتساب
-function shareWhatsApp() {
-    const gypsum = document.getElementById('gypsum').innerText;
-    const cement = document.getElementById('cement').innerText;
-    const water = document.getElementById('water').innerText;
-    const sum = document.getElementById('sum').innerText;
-
-    const message = `حساب كميات الخلطة: \nالجبس: ${gypsum} جرام\nالإسمنت: ${cement} جرام\nالماء: ${water} جرام\nالمجموع الكلي: ${sum} جرام\nمقدمة من برنامج حساب الخلطة.`;
-    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
-}
-
-// دالة عرض الدعاء العشوائي
-const duaaList = [
-    "اللهم اجعل هذا العمل خالصًا لوجهك الكريم.",
-    "اللهم ارزقني رزقًا مباركًا.",
-    "اللهم سهل لنا الأمور ويسر لنا الطريق.",
-    "اللهم اجعل يومنا هذا خيرًا من أمس."
-];
-
-function showRandomDuaa() {
-    const randomDuaa = duaaList[Math.floor(Math.random() * duaaList.length)];
-    document.getElementById('duaaBox').style.display = 'block';
-    document.getElementById('duaaBox').innerText = randomDuaa;
+    document.getElementById('clickSound').play();
 }
 </script>
 
