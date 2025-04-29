@@ -12,25 +12,19 @@
         padding: 0;
         text-align: center;
     }
-
     .container {
         max-width: 100%;
         margin: 0 auto;
-        padding: 0;
-    }
-
-    .banner {
-        width: 100%;
-        height: auto;
-        display: block;
-    }
-
-    .main-box {
         background: #f9f9f9;
-        margin: 30px auto;
         padding: 5vw;
         border-radius: 15px;
         box-shadow: 0 0 10px #ccc;
+    }
+
+    .program-logo {
+        width: 100%;
+        display: block;
+        margin: 0 auto;
     }
 
     .input-frame {
@@ -43,7 +37,7 @@
     .input-frame img {
         width: 80%;
         display: block;
-        margin: 0 auto;
+        margin: 0 auto 15px;
     }
 
     input, button {
@@ -55,7 +49,7 @@
     }
 
     input::placeholder {
-        color: #999;
+        font-size: 0.9em;
     }
 
     button {
@@ -63,12 +57,11 @@
         font-weight: bold;
         background-color: transparent;
         border: none;
-        padding: 0;
+        padding: 0 4vw;
     }
 
-    button img {
-        height: 10vw;
-        width: auto;
+    button:hover {
+        background-color: transparent;
     }
 
     #results, #total {
@@ -94,11 +87,16 @@
         background-color: #1ebe57;
     }
 
-    .footer-frame {
-        background-color: #f2f2f2;
-        padding: 5vw;
-        border-radius: 10px;
-        margin-top: 5vw;
+    .footer-info {
+        font-size: 0.9em;
+        margin-top: 60px;
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+
+    .footer-img {
+        width: 100%;
+        display: block;
     }
 
     .button-container {
@@ -110,54 +108,39 @@
     }
 
     .duaa-box {
-        margin-top: 20px;
-        padding: 15px;
-        background-color: #fff7e6;
-        border: 1px solid #ffe0b2;
+        background-color: #fff5e6;
+        border: 1px solid #ffd699;
         border-radius: 10px;
-        font-size: 1.3em;
+        padding: 15px;
+        margin-top: 25px;
+        font-size: 1.4em;
         font-weight: bold;
     }
 
     .tips-box {
         margin: 30px auto;
-        padding: 20px;
+        padding: 25px;
         background-color: #e6f2ff;
         border: 1px solid #b3d1ff;
         border-radius: 10px;
-        max-width: 600px;
+        max-width: 90%;
         font-weight: bold;
-        font-size: 0.95em;
-    }
-
-    .footer-info {
-        margin-top: 50px;
-        font-size: 0.9em;
-        color: #555;
-        font-weight: bold;
-    }
-
-    .footer-img {
-        width: 100%;
-        margin-top: 10px;
+        font-size: 1.2em;
     }
 </style>
 </head>
 <body>
 
-<img src="head.png" alt="رأس الصفحة" class="banner">
+<div class="container">
+    <img src="head.png" alt="رأس الصفحة" class="program-logo">
 
-<div class="main-box">
     <div class="input-frame">
         <img src="ml.png" alt="ادخل حجم القالب">
-        <input type="number" id="volume" placeholder="277 ملي">
+        <input type="number" id="volume" placeholder="مثلاً: ٢٧٧ ملي">
+        
         <div class="button-container">
-            <button onclick="calculate()">
-                <img src="cont.png" alt="احسب">
-            </button>
-            <button onclick="resetForm()">
-                <img src="delet.png" alt="مسح">
-            </button>
+            <button onclick="calculate()">احسب</button>
+            <button onclick="resetForm()">مسح</button>
         </div>
     </div>
 
@@ -173,36 +156,35 @@
 
     <button class="share-btn" onclick="shareWhatsApp()">مشاركة على واتساب</button>
 
-    <div id="duaa" class="duaa-box"></div>
+    <div class="duaa-box" id="duaaBox">اللهم بارك لنا في أعمالنا.</div>
 
     <div class="tips-box">
-        نصائح: للحصول على نتائج أفضل في المشاريع المنزلية، تأكد من استخدام نسب دقيقة وتجنب الخلط الزائد.
+        <strong>نصيحة:</strong> للحصول على خلطات قوية ومثالية للمشاريع المنزلية، تأكد من استخدام المكونات بنسبة دقيقة مع التقليب الجيد.
     </div>
 
-    <div class="footer-info">
-        الإصدار 4.0 – جميع الحقوق محفوظة
-    </div>
-
-    <img src="footer.png" alt="تذييل الصفحة" class="footer-img">
+    <div class="footer-info">الإصدار 4.0 - جميع الحقوق محفوظة</div>
+    <img src="footer.png" alt="الفوتر" class="footer-img">
 </div>
 
 <audio id="clickSound" src="https://www.soundjay.com/buttons/sounds/button-29.mp3"></audio>
 
 <script>
-const ad3iya = [
-    "اللهم إني أسألك التوفيق والسداد.",
-    "ربِّ يسر لي أمري وبارك لي في عملي.",
-    "اللهم اجعل عملي خالصًا لوجهك الكريم.",
-    "اللهم ارزقني الإتقان والنجاح في كل خطوة.",
-    "اللهم سخر لي الخير حيث كان."
+// الأدعية العشوائية
+const ad3eya = [
+    "اللهم بارك لنا في أعمالنا.",
+    "اللهم ارزقنا التوفيق والسداد.",
+    "اللهم اجعل هذا العمل خالصًا لوجهك.",
+    "اللهم يسّر ولا تعسّر.",
+    "اللهم افتح لنا أبواب الخير."
 ];
 
-function showRandomDuaa() {
-    const duaaBox = document.getElementById('duaa');
-    const randomIndex = Math.floor(Math.random() * ad3iya.length);
-    duaaBox.textContent = ad3iya[randomIndex];
-}
+document.addEventListener("DOMContentLoaded", () => {
+    const duaaBox = document.getElementById("duaaBox");
+    const randomIndex = Math.floor(Math.random() * ad3eya.length);
+    duaaBox.innerText = ad3eya[randomIndex];
+});
 
+// التأثير عند الحساب
 function animateNumber(element, start, end, duration) {
     let range = end - start;
     let current = start;
@@ -217,14 +199,15 @@ function animateNumber(element, start, end, duration) {
     }, 20);
 }
 
+// حساب الكميات
 function calculate() {
+    document.getElementById("clickSound").play();
+
     const volume = parseFloat(document.getElementById('volume').value);
     if (isNaN(volume)) {
-        alert("الرجاء إدخال رقم صحيح لحجم القالب.");
+        alert("الرجاء إدخال رقم صحيح.");
         return;
     }
-
-    document.getElementById('clickSound').play();
 
     const ratio = volume / 300;
     const gypsum = Math.round(280 * ratio);
@@ -241,17 +224,17 @@ function calculate() {
     animateNumber(document.getElementById('sum'), 0, total, 1000);
 
     document.querySelector('.share-btn').style.display = 'block';
-    showRandomDuaa();
 }
 
+// إعادة التعيين
 function resetForm() {
     document.getElementById('volume').value = '';
     document.getElementById('results').style.display = 'none';
     document.getElementById('total').style.display = 'none';
     document.querySelector('.share-btn').style.display = 'none';
-    document.getElementById('duaa').textContent = '';
 }
 
+// واتساب
 function shareWhatsApp() {
     const gypsum = document.getElementById('gypsum').innerText;
     const cement = document.getElementById('cement').innerText;
@@ -262,9 +245,6 @@ function shareWhatsApp() {
     const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
 }
-
-// إظهار دعاء عند تحميل الصفحة
-window.onload = showRandomDuaa;
 </script>
 
 </body>
