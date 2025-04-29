@@ -1,0 +1,151 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>حاسبة كميات الخلطة</title>
+
+  <!-- دعم PWA -->
+  <link rel="manifest" href="manifest.json">
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js')
+        .then(() => console.log('Service Worker مسجل'))
+        .catch(error => console.log('خطأ في تسجيل Service Worker:', error));
+    }
+  </script>
+
+  <style>
+    body { margin: 0; font-family: 'Cairo', sans-serif; background: #f5f5f5; text-align: center; }
+    img.header-img, img.footer-img { width: 100vw; display: block; }
+    .container { max-width: 600px; margin: auto; padding: 20px; }
+    .input-frame { background: #f2f2f2; padding: 20px; border-radius: 10px; margin: 20px 0; }
+    .input-frame img { width: 80%; margin-bottom: 15px; }
+    .input-section { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+    .input-section input { width: 200px; padding: 10px; font-size: 1em; border-radius: 8px; border: 1px solid #ccc; }
+    .button-group { display: flex; gap: 10px; }
+    .button-group button { padding: 10px 20px; font-weight: bold; border: 1px solid #ccc; background: transparent; border-radius: 8px; cursor: pointer; transition: 0.3s; }
+    .button-group button:hover { background: #eee; }
+    .results { margin: 20px 0; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    .prayer-box, .tips-box { margin: 20px 0; background: #fff; padding: 20px; border-radius: 8px; font-weight: bold; }
+    .footer-info { margin: 40px 0 10px; font-size: 0.9em; color: #666; }
+    @media (max-width: 600px) {
+      .input-section, .button-group { flex-direction: column; width: 100%; }
+      .input-section input, .button-group button { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+<img src="head.png" alt="رأس الصفحة" class="header-img">
+
+<div class="container">
+  <div class="input-frame">
+    <img src="ml.png" alt="ادخل حجم القالب">
+    <div class="input-section">
+      <input type="text" id="volume" placeholder="مثلاً: ٢٧٧ ملي">
+      <div class="button-group">
+        <button id="calc-btn">احسب</button>
+        <button id="clear-btn">مسح</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="results" id="results" style="display: none;">
+    <p>نتائج الخلطة:</p>
+    <p>الجبس: <span id="gypsum-result">0</span> جم</p>
+    <p>الإسمنت: <span id="cement-result">0</span> جم</p>
+    <p>الماء: <span id="water-result">0</span> مل</p>
+    <p><strong>المجموع الكلي: <span id="total-result">0</span> جرام</strong></p>
+    <button id="whatsapp-btn">مشاركة على واتساب</button>
+  </div>
+
+  <div class="prayer-box" id="prayer-box"><p id="prayer-text"></p></div>
+  <div class="tips-box" id="tips-box"><p id="tips-text"></p></div>
+
+  <div class="footer-info">
+    <p>الإصدار 4.0 - جميع الحقوق محفوظة &copy;</p>
+  </div>
+</div>
+
+<img src="footer.png" alt="صورة الفوتر" class="footer-img">
+<audio id="click-sound" src="click.mp3"></audio>
+
+<script>
+function convertArabicToEnglish(str) {
+  const arabicNums = '٠١٢٣٤٥٦٧٨٩';
+  return str.replace(/[٠-٩]/g, d => arabicNums.indexOf(d));
+}
+
+const prayers = [
+  "ربنا آتنا في الدنيا حسنة وفي الآخرة حسنة وقنا عذاب النار",
+  "اللهم صل على محمد وعلى آل محمد",
+  "سبحان الله وبحمده سبحان الله العظيم",
+  "اللهم افتح علينا فتوح العارفين",
+  "اللهم ارزقنا حلاوة ذكرك وشكرك وحسن عبادتك"
+];
+const tips = [
+  "نصيحة: تأكد من دقة القياس للحصول على خلطة متجانسة.",
+  "تذكر أن تضع الخلطة في مكان جيد التهوية.",
+  "تأكد من نقاء الماء المستخدم لتحسين جودة الخلطة.",
+  "التزم بالقياسات للحصول على أفضل نتائج."
+];
+
+document.getElementById('prayer-text').textContent = prayers[Math.floor(Math.random() * prayers.length)];
+document.getElementById('tips-text').textContent = tips[Math.floor(Math.random() * tips.length)];
+
+function playClickSound() {
+  document.getElementById('click-sound').play();
+}
+
+document.getElementById('calc-btn').addEventListener('click', function() {
+  playClickSound();
+  let vol = document.getElementById('volume').value.trim();
+  vol = convertArabicToEnglish(vol);
+  vol = parseFloat(vol);
+  if (!vol || vol <= 0) return;
+  const gypsum = Math.round(vol * 0.5);
+  const cement = Math.round(vol * 0.3);
+  const water = Math.round(vol * 0.2);
+  const total = gypsum + cement + water;
+  document.getElementById('results').style.display = 'block';
+  animateValue('gypsum-result', 0, gypsum, 1000);
+  animateValue('cement-result', 0, cement, 1000);
+  animateValue('water-result', 0, water, 1000);
+  animateValue('total-result', 0, total, 1000);
+});
+
+document.getElementById('clear-btn').addEventListener('click', function() {
+  playClickSound();
+  document.getElementById('volume').value = '';
+  document.getElementById('results').style.display = 'none';
+  ['gypsum-result', 'cement-result', 'water-result', 'total-result'].forEach(id => document.getElementById(id).textContent = '0');
+});
+
+document.getElementById('whatsapp-btn').addEventListener('click', function() {
+  playClickSound();
+  const g = document.getElementById('gypsum-result').textContent;
+  const c = document.getElementById('cement-result').textContent;
+  const w = document.getElementById('water-result').textContent;
+  const t = document.getElementById('total-result').textContent;
+  const msg = `نتيجة حساب الخلطة:\nالجبس: ${g} جم\nالإسمنت: ${c} جم\nالماء: ${w} مل\nالمجموع الكلي: ${t} جرام`;
+  const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`;
+  window.open(url, '_blank');
+});
+
+function animateValue(id, start, end, duration) {
+  const el = document.getElementById(id);
+  let startTs = null;
+  const step = ts => {
+    if (!startTs) startTs = ts;
+    const progress = Math.min((ts - startTs) / duration, 1);
+    el.textContent = Math.floor(progress * (end - start) + start);
+    if (progress < 1) window.requestAnimationFrame(step);
+  };
+  window.requestAnimationFrame(step);
+}
+</script>
+
+</body>
+</html>
