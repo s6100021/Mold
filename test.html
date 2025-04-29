@@ -39,7 +39,7 @@
       margin-top: 10px;
     }
     .input-section input {
-      width: 200px; /* كبرنا عرض الإدخال */
+      width: 200px;
       padding: 10px;
       font-size: 1em;
       border-radius: 8px;
@@ -52,7 +52,7 @@
     .button-group button {
       padding: 10px 20px;
       font-size: 1em;
-      font-weight: bold; /* الخط بولد */
+      font-weight: bold;
       border: 1px solid #ccc;
       background-color: transparent;
       color: #333;
@@ -120,7 +120,7 @@
   <div class="input-frame">
     <img src="ml.png" alt="ادخل حجم القالب">
     <div class="input-section">
-      <input type="number" id="volume" placeholder="مثلاً: ٢٧٧ ملي" />
+      <input type="text" id="volume" placeholder="مثلاً: ٢٧٧ ملي" />
       <div class="button-group">
         <button id="calc-btn">احسب</button>
         <button id="clear-btn">مسح</button>
@@ -133,6 +133,7 @@
     <p>الجبس: <span id="gypsum-result">0</span> جم</p>
     <p>الإسمنت: <span id="cement-result">0</span> جم</p>
     <p>الماء: <span id="water-result">0</span> مل</p>
+    <p><strong>المجموع الكلي: <span id="total-result">0</span> جرام</strong></p>
     <button id="whatsapp-btn">مشاركة على واتساب</button>
   </div>
 
@@ -153,6 +154,12 @@
 <audio id="click-sound" src="click.mp3"></audio>
 
 <script>
+// تحويل الأرقام العربية إلى إنجليزية
+function convertArabicToEnglish(str) {
+  const arabicNums = '٠١٢٣٤٥٦٧٨٩';
+  return str.replace(/[٠-٩]/g, d => arabicNums.indexOf(d));
+}
+
 const prayers = [
   "ربنا آتنا في الدنيا حسنة وفي الآخرة حسنة وقنا عذاب النار",
   "اللهم صل على محمد وعلى آل محمد",
@@ -166,6 +173,7 @@ const tips = [
   "تأكد من نقاء الماء المستخدم لتحسين جودة الخلطة.",
   "التزم بالقياسات للحصول على أفضل نتائج."
 ];
+
 document.getElementById('prayer-text').textContent = prayers[Math.floor(Math.random() * prayers.length)];
 document.getElementById('tips-text').textContent = tips[Math.floor(Math.random() * tips.length)];
 
@@ -175,48 +183,54 @@ function playClickSound() {
 
 document.getElementById('calc-btn').addEventListener('click', function() {
   playClickSound();
-  const vol = parseFloat(document.getElementById('volume').value);
+
+  let vol = document.getElementById('volume').value.trim();
+  vol = convertArabicToEnglish(vol);
+  vol = parseFloat(vol);
+
   if (!vol || vol <= 0) return;
 
   const gypsum = Math.round(vol * 0.5);
   const cement = Math.round(vol * 0.3);
   const water = Math.round(vol * 0.2);
+  const total = gypsum + cement + water;
 
   document.getElementById('results').style.display = 'block';
+
   animateValue('gypsum-result', 0, gypsum, 1000);
   animateValue('cement-result', 0, cement, 1000);
   animateValue('water-result', 0, water, 1000);
+  animateValue('total-result', 0, total, 1000);
 });
 
 document.getElementById('clear-btn').addEventListener('click', function() {
   playClickSound();
   document.getElementById('volume').value = '';
   document.getElementById('results').style.display = 'none';
-  document.getElementById('gypsum-result').textContent = '0';
-  document.getElementById('cement-result').textContent = '0';
-  document.getElementById('water-result').textContent = '0';
+  ['gypsum-result', 'cement-result', 'water-result', 'total-result'].forEach(id => {
+    document.getElementById(id).textContent = '0';
+  });
 });
 
 document.getElementById('whatsapp-btn').addEventListener('click', function() {
   playClickSound();
-  const gypsum = document.getElementById('gypsum-result').textContent;
-  const cement = document.getElementById('cement-result').textContent;
-  const water = document.getElementById('water-result').textContent;
-  const text = `نتيجة حساب الخلطة:\nالجبس: ${gypsum} جم\nالإسمنت: ${cement} جم\nالماء: ${water} مل`;
-  const url = "https://api.whatsapp.com/send?text=" + encodeURIComponent(text);
+  const g = document.getElementById('gypsum-result').textContent;
+  const c = document.getElementById('cement-result').textContent;
+  const w = document.getElementById('water-result').textContent;
+  const t = document.getElementById('total-result').textContent;
+  const msg = `نتيجة حساب الخلطة:\nالجبس: ${g} جم\nالإسمنت: ${c} جم\nالماء: ${w} مل\nالمجموع الكلي: ${t} جرام`;
+  const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`;
   window.open(url, '_blank');
 });
 
 function animateValue(id, start, end, duration) {
-  const element = document.getElementById(id);
-  let startTimestamp = null;
-  const step = (timestamp) => {
-    if (!startTimestamp) startTimestamp = timestamp;
-    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-    element.textContent = Math.floor(progress * (end - start) + start);
-    if (progress < 1) {
-      window.requestAnimationFrame(step);
-    }
+  const el = document.getElementById(id);
+  let startTs = null;
+  const step = ts => {
+    if (!startTs) startTs = ts;
+    const progress = Math.min((ts - startTs) / duration, 1);
+    el.textContent = Math.floor(progress * (end - start) + start);
+    if (progress < 1) window.requestAnimationFrame(step);
   };
   window.requestAnimationFrame(step);
 }
