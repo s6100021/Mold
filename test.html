@@ -4,6 +4,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>حاسبة كميات الخلطة</title>
+
+  <!-- دعم PWA -->
+  <link rel="manifest" href="manifest.json">
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("sw.js").then(() =>
+        console.log("Service Worker مسجل")
+      );
+    }
+  </script>
+
   <style>
     body {
       margin: 0;
@@ -154,7 +165,7 @@
 <audio id="click-sound" src="click.mp3"></audio>
 
 <script>
-// تحويل الأرقام العربية إلى إنجليزية
+// دعم الأرقام العربية
 function convertArabicToEnglish(str) {
   const arabicNums = '٠١٢٣٤٥٦٧٨٩';
   return str.replace(/[٠-٩]/g, d => arabicNums.indexOf(d));
@@ -218,7 +229,7 @@ document.getElementById('whatsapp-btn').addEventListener('click', function() {
   const c = document.getElementById('cement-result').textContent;
   const w = document.getElementById('water-result').textContent;
   const t = document.getElementById('total-result').textContent;
-  const msg = `نتيجة حساب الخلطة:\nالجبس: ${g} جم\nالإسمنت: ${c} جم\nالماء: ${w} مل\nالمجموع الكلي: ${t} جرام`;
+  const msg = `نتيجة حساب الخلطة:\\nالجبس: ${g} جم\\nالإسمنت: ${c} جم\\nالماء: ${w} مل\\nالمجموع الكلي: ${t} جرام`;
   const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`;
   window.open(url, '_blank');
 });
