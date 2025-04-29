@@ -37,9 +37,6 @@
       padding: 5px;
       font-size: 1em;
     }
-    .input-section span {
-      font-size: 1em;
-    }
     .input-section button {
       padding: 8px 15px;
       font-size: 1em;
@@ -91,7 +88,7 @@
       .input-section {
         flex-direction: column;
       }
-      .input-section label, .input-section input, .input-section span, .input-section button {
+      .input-section label, .input-section input, .input-section button {
         width: 100%;
         margin: 5px 0;
       }
@@ -100,14 +97,15 @@
 </head>
 <body>
   <img src="head.png" alt="صورة رأس الصفحة" class="header-img">
+
   <div class="container">
     <div class="input-section">
       <label for="volume">أدخل الحجم:</label>
-      <input type="number" id="volume" placeholder="مثلاً ٢٧٧" />
-      <span>مللي</span>
+      <input type="number" id="volume" placeholder="مثلاً: ٢٧٧ ملي" />
       <button id="calc-btn">احسب</button>
       <button id="clear-btn">مسح</button>
     </div>
+
     <div class="results" id="results" style="display: none;">
       <p>نتائج الخلطة:</p>
       <p>الجبس: <span id="gypsum-result">0</span> جم</p>
@@ -115,18 +113,23 @@
       <p>الماء: <span id="water-result">0</span> مل</p>
       <button id="whatsapp-btn">مشاركة على واتساب</button>
     </div>
+
     <div class="prayer-box" id="prayer-box">
       <p id="prayer-text"></p>
     </div>
+
     <div class="tips-box" id="tips-box">
       <p id="tips-text"></p>
     </div>
+
     <div class="footer-info">
       <p>الإصدار 4.0 - جميع الحقوق محفوظة &copy;</p>
     </div>
   </div>
+
   <img src="footer.png" alt="صورة الفوتر" class="footer-img">
   <audio id="click-sound" src="click.mp3"></audio>
+
   <script>
     const prayers = [
       "ربنا آتنا في الدنيا حسنة وفي الآخرة حسنة وقنا عذاب النار",
@@ -141,27 +144,25 @@
       "تأكد من نقاء الماء المستخدم لتحسين جودة الخلطة.",
       "التزم بالقياسات للحصول على أفضل نتائج."
     ];
-    // عرض دعاء عشوائي
+
     document.getElementById('prayer-text').textContent = prayers[Math.floor(Math.random() * prayers.length)];
-    // عرض نصيحة عشوائية
     document.getElementById('tips-text').textContent = tips[Math.floor(Math.random() * tips.length)];
-    // الحساب والرسوم المتحركة للأرقام
+
     document.getElementById('calc-btn').addEventListener('click', function() {
-      // تشغيل صوت النقر
       document.getElementById('click-sound').play();
       const vol = parseFloat(document.getElementById('volume').value);
       if (!vol || vol <= 0) return;
-      // مثال حساب (يمكن تعديل النسب حسب الحاجة)
+
       const gypsum = Math.round(vol * 0.5);
       const cement = Math.round(vol * 0.3);
       const water = Math.round(vol * 0.2);
-      // عرض النتائج مع رسوم متحركة
+
       document.getElementById('results').style.display = 'block';
       animateValue('gypsum-result', 0, gypsum, 1000);
       animateValue('cement-result', 0, cement, 1000);
       animateValue('water-result', 0, water, 1000);
     });
-    // زر المسح
+
     document.getElementById('clear-btn').addEventListener('click', function() {
       document.getElementById('click-sound').play();
       document.getElementById('volume').value = '';
@@ -170,7 +171,7 @@
       document.getElementById('cement-result').textContent = '0';
       document.getElementById('water-result').textContent = '0';
     });
-    // مشاركة على واتساب
+
     document.getElementById('whatsapp-btn').addEventListener('click', function() {
       document.getElementById('click-sound').play();
       const gypsum = document.getElementById('gypsum-result').textContent;
@@ -180,7 +181,7 @@
       const url = "https://api.whatsapp.com/send?text=" + encodeURIComponent(text);
       window.open(url, '_blank');
     });
-    // دالة الرسم المتحرك للأرقام
+
     function animateValue(id, start, end, duration) {
       const element = document.getElementById(id);
       let startTimestamp = null;
