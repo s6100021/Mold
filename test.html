@@ -3,101 +3,164 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>برنامج حساب كميات الخلطة</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<title>حساب كميات الخلطة</title>
 <style>
-body {
-    font-family: 'Cairo', sans-serif;
-    background-color: #ffffff;
-}
-.card {
-    border-radius: 15px;
-}
-.btn {
-    font-size: 1.2rem;
-}
-.footer {
-    margin-top: 30px;
-    font-size: 0.9rem;
-    color: #777;
-}
+    body {
+        font-family: 'Cairo', sans-serif;
+        background-color: #ffffff;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+    }
+
+    /* بانر الهيدر */
+    .banner {
+        width: 100%;
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+    }
+    .banner img {
+        width: 100%;
+        height: auto;
+        display: block;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        max-width: 100%;
+        margin: 30px auto;
+        background: #f9f9f9;
+        padding: 5vw;
+        border-radius: 15px;
+        box-shadow: 0 0 10px #ccc;
+        width: auto;
+    }
+
+    .input-frame {
+        background-color: #f2f2f2;
+        padding: 5vw;
+        border-radius: 10px;
+        margin-bottom: 5vw;
+    }
+
+    .input-frame img {
+        width: 80%;
+        display: block;
+        margin: 0 auto;
+    }
+
+    input, button {
+        padding: 3vw;
+        margin: 3vw;
+        font-size: 5vw;
+        border-radius: 10px;
+        border: 1px solid #ddd;
+    }
+
+    button {
+        cursor: pointer;
+        font-weight: bold;
+        background-color: transparent;
+        border: none;
+        padding: 0;
+    }
+
+    button img {
+        height: 10vw;
+        width: auto;
+    }
+
+    button:hover {
+        background-color: transparent;
+    }
+
+    #results, #total {
+        margin-top: 20px;
+        background: #e0ffe0;
+        padding: 15px;
+        border-radius: 10px;
+    }
+
+    .share-btn {
+        background-color: #25D366;
+        color: white;
+        padding: 5vw 10vw;
+        font-size: 5vw;
+        margin-top: 5vw;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        display: none;
+    }
+
+    .share-btn:hover {
+        background-color: #1ebe57;
+    }
+
+    .footer-frame {
+        background-color: #f2f2f2;
+        padding: 5vw;
+        border-radius: 10px;
+        margin-top: 5vw;
+    }
+
+    .button-container {
+        text-align: center;
+    }
+
+    .button-container button {
+        margin: 0 2vw;
+    }
 </style>
 </head>
 
 <body>
 
-<div class="container py-5">
+<!-- بانر الهيدر -->
+<div class="banner">
+    <img src="head.png" alt="بانر برنامج حساب كميات الخلطة">
+</div>
 
-    <!-- صورة البرنامج -->
-    <div class="text-center mb-4">
-        <img src="program_logo.png" class="img-fluid" alt="شعار البرنامج">
-    </div>
+<div class="container">
 
-    <!-- إدخال الحجم وزرار احسب ومسح -->
-    <div class="card p-4 mb-4">
-        <img src="ml.png" class="img-fluid mb-3" alt="ادخل حجم القالب">
+    <!-- إدخال حجم القالب -->
+    <div class="input-frame">
+        <img src="ml.png" alt="ادخل حجم القالب">
+        <input type="number" id="volume" placeholder="أدخل حجم القالب بالملي">
         
-        <input type="number" id="volume" class="form-control mb-3" placeholder="أدخل حجم القالب بالملي">
-
-        <div class="d-flex justify-content-center">
-            <button onclick="calculate()" class="btn btn-success mx-2">احسب</button>
-            <button onclick="resetForm()" class="btn btn-danger mx-2">مسح</button>
+        <div class="button-container">
+            <button onclick="calculate()">
+                <img src="cont.png" alt="احسب">
+            </button>
+            <button onclick="resetForm()">
+                <img src="delet.png" alt="مسح">
+            </button>
         </div>
     </div>
 
     <!-- النتائج -->
-    <div id="results" class="card p-4 mb-4 text-center" style="display:none;">
+    <div id="results" style="display:none;">
         <p>الجبس: <span id="gypsum">0</span> جرام</p>
         <p>الإسمنت: <span id="cement">0</span> جرام</p>
         <p>الماء: <span id="water">0</span> جرام</p>
     </div>
 
-    <!-- المجموع الكلي -->
-    <div id="total" class="card p-4 mb-4 text-center" style="display:none;">
+    <div id="total" style="display:none;">
         <strong>المجموع الكلي: <span id="sum">0</span> جرام</strong>
     </div>
 
-    <!-- زر المشاركة على واتساب -->
-    <div class="text-center mb-4">
-        <button class="btn btn-success" id="share-btn" style="display:none;" onclick="shareWhatsApp()">مشاركة على واتساب</button>
-    </div>
-
-    <!-- الأدعية العشوائية -->
-    <div class="card p-4 mb-4 text-center" id="prayer-card">
-        <strong id="prayerText">دعاء اليوم: جاري التحميل...</strong>
-    </div>
-
-    <!-- الفوتر -->
-    <div class="text-center footer">
-        نسخة 1.0.0 - جميع الحقوق محفوظة
-    </div>
-
+    <!-- زر المشاركة -->
+    <button class="share-btn" onclick="shareWhatsApp()">مشاركة على واتساب</button>
 </div>
 
 <!-- صوت الضغط -->
 <audio id="clickSound" src="https://www.soundjay.com/buttons/sounds/button-29.mp3"></audio>
 
+<!-- السكريبت -->
 <script>
-// أدعية عشوائية
-const prayers = [
-    "اللهم ارزقنا الإخلاص في القول والعمل.",
-    "اللهم اجعل القرآن ربيع قلوبنا.",
-    "اللهم ارزقنا حبك وحب من يحبك.",
-    "اللهم اجعلنا من المقبولين عندك.",
-    "اللهم اجعل عملنا خالصا لوجهك الكريم."
-];
-
-window.onload = function() {
-    const prayer = prayers[Math.floor(Math.random() * prayers.length)];
-    document.getElementById('prayerText').innerText = `دعاء اليوم: ${prayer}`;
-};
-
-// دالة لتشغيل الصوت
-function playClickSound() {
-    document.getElementById('clickSound').play();
-}
-
-// دالة حساب النتائج
+// حساب نتائج العداد
 function animateNumber(element, start, end, duration) {
     let range = end - start;
     let current = start;
@@ -112,11 +175,13 @@ function animateNumber(element, start, end, duration) {
     }, 20);
 }
 
+// حساب الكميات
 function calculate() {
-    playClickSound();
+    document.getElementById('clickSound').play();
+
     const volume = parseFloat(document.getElementById('volume').value);
     if (isNaN(volume)) {
-        alert("الرجاء إدخال رقم صحيح.");
+        alert("الرجاء إدخال رقم صحيح لحجم القالب.");
         return;
     }
 
@@ -128,22 +193,25 @@ function calculate() {
 
     document.getElementById('results').style.display = 'block';
     document.getElementById('total').style.display = 'block';
-    document.getElementById('share-btn').style.display = 'inline-block';
 
     animateNumber(document.getElementById('gypsum'), 0, gypsum, 1000);
     animateNumber(document.getElementById('cement'), 0, cement, 1000);
     animateNumber(document.getElementById('water'), 0, water, 1000);
     animateNumber(document.getElementById('sum'), 0, total, 1000);
+
+    document.querySelector('.share-btn').style.display = 'block';
 }
 
+// إعادة تعيين المدخلات
 function resetForm() {
-    playClickSound();
+    document.getElementById('clickSound').play();
     document.getElementById('volume').value = '';
     document.getElementById('results').style.display = 'none';
     document.getElementById('total').style.display = 'none';
-    document.getElementById('share-btn').style.display = 'none';
+    document.querySelector('.share-btn').style.display = 'none';
 }
 
+// مشاركة واتساب
 function shareWhatsApp() {
     const gypsum = document.getElementById('gypsum').innerText;
     const cement = document.getElementById('cement').innerText;
