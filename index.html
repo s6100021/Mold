@@ -1,162 +1,165 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>برنامج حساب كميات الخلطة</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
-<style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>برنامج حساب الكميات</title>
+  <style>
     body {
-        font-family: 'Cairo', sans-serif;
-        margin: 0;
-        padding: 0;
-        text-align: center;
+      font-family: 'Cairo', sans-serif;
+      background-color: #f3f5f7;
+      margin: 0;
+      padding: 0;
+      text-align: center;
     }
-    .program-header {
-        width: 100%;
-        height: auto;
-    }
-    .footer-img {
-        width: 100%;
-        height: auto;
-        margin-top: 20px;
-    }
-    .card-custom {
-        padding: 20px;
-        border-radius: 15px;
-        margin: 20px auto;
-    }
-</style>
-</head>
 
+    .header, .footer {
+      background: linear-gradient(to right, #0f9ddf, #014aad);
+      color: white;
+      padding: 20px 0;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .container {
+      padding: 20px;
+      max-width: 500px;
+      margin: auto;
+    }
+
+    .box {
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 15px;
+      margin-bottom: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+
+    input[type="number"], input[type="text"] {
+      width: 90%;
+      padding: 12px;
+      margin-top: 10px;
+      margin-bottom: 20px;
+      font-size: 18px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      text-align: center;
+      direction: rtl;
+    }
+
+    button {
+      width: 90%;
+      padding: 12px;
+      margin: 10px 0;
+      font-size: 18px;
+      border: 1px solid #888;
+      border-radius: 8px;
+      background-color: #fff;
+      cursor: pointer;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-size: 22px;
+      font-weight: bold;
+      line-height: 2;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 15px;
+      }
+      .header, .footer {
+        font-size: 18px;
+        padding: 15px 0;
+      }
+    }
+  </style>
+</head>
 <body>
 
-<!-- الهيدر -->
-<img src="head.png" alt="هيدر برنامج حساب الكميات" class="program-header">
+  <div class="header">برنامج حساب الكميات</div>
 
-<div class="container">
+  <div class="container">
 
-    <!-- مربع الإدخال -->
-    <div class="card card-custom bg-light">
-        <img src="ml.png" alt="أدخل حجم القالب" class="img-fluid mb-3">
-        <input type="number" id="volume" class="form-control mb-3" placeholder="أدخل حجم القالب بالملي">
-        
-        <div class="d-flex justify-content-center">
-            <button onclick="calculate()" class="btn btn-primary m-2">احسب</button>
-            <button onclick="resetForm()" class="btn btn-danger m-2">مسح</button>
-        </div>
+    <div class="box">
+      <h3>أدخل حجم القالب ( مل )</h3>
+      <input type="text" id="volume" placeholder="مثال: ٣٠٠ أو 300">
+      <button onclick="calculate()">احسب</button>
+      <button onclick="reset()">مسح</button>
+      <div class="result" id="result"></div>
     </div>
 
-    <!-- النتائج -->
-    <div id="results" class="card card-custom bg-success text-white" style="display:none;">
-        <p>الجبس: <span id="gypsum">0</span> جرام</p>
-        <p>الإسمنت: <span id="cement">0</span> جرام</p>
-        <p>الماء: <span id="water">0</span> جرام</p>
+    <div class="box">
+      <p id="dua" style="font-size: 20px;"></p>
     </div>
 
-    <div id="total" class="card card-custom bg-warning" style="display:none;">
-        <strong>المجموع الكلي: <span id="sum">0</span> جرام</strong>
+    <div class="box">
+      <p id="tip" style="font-size: 18px;"></p>
     </div>
 
-    <!-- مربع الأدعية -->
-    <div id="dua-frame" class="card card-custom bg-info text-white">
-        <p id="dua-text" class="mb-0">دعاء اليوم</p>
-    </div>
+  </div>
 
-    <!-- مربع المعلومات -->
-    <div id="info-frame" class="card card-custom bg-secondary text-white">
-        <p id="info-text" class="mb-0">معلومة اليوم</p>
-    </div>
+  <div class="footer">الإصدار: 1.0</div>
 
-    <!-- رقم الإصدار والحقوق -->
-    <div class="mt-4">
-        <p>الإصدار 4.0 - جميع الحقوق محفوظة ©</p>
-    </div>
-
-</div>
-
-<!-- الفوتر -->
-<img src="footer.png" alt="فوتر البرنامج" class="footer-img">
-
-<audio id="clickSound" src="https://www.soundjay.com/buttons/sounds/button-29.mp3"></audio>
-
-<script>
-// أدعية عشوائية
-const duas = [
-    "اللهم يسر لي أمري ووفقني لما تحب وترضى.",
-    "اللهم اجعل عملي هذا خالصًا لوجهك الكريم.",
-    "رب اشرح لي صدري ويسر لي أمري.",
-    "اللهم ارزقني علما نافعًا ورزقًا طيبًا.",
-    "اللهم اجعلني مباركًا أينما كنت."
-];
-
-// معلومات عشوائية
-const infos = [
-    "للحصول على خلطة جبس قوية، استخدم نسبة 3 أجزاء جبس إلى 1 جزء ماء.",
-    "يفضل مزج الإسمنت بالماء البارد لتحسين قوة التماسك.",
-    "لعمل خلطة ترميم منزلية: امزج الجبس مع كمية قليلة من الأسمنت الأبيض.",
-    "استخدم الأسمنت الأبيض لملء الفجوات والشقوق في الحوائط.",
-    "للحصول على سطح أملس، قم بدهن القالب بزيت خفيف قبل صب الجبس.",
-    "مزج الجبس بسرعة يمنع تكتل المواد ويزيد قوة المنتج النهائي.",
-    "استخدم قالب سيليكون لصب الجبس لأشكال منزلية ديكورية جميلة."
-];
-
-// تشغيل دعاء ومعلومة عند تحميل الصفحة
-window.onload = function() {
-    const randomDua = duas[Math.floor(Math.random() * duas.length)];
-    document.getElementById('dua-text').innerText = randomDua;
-
-    const randomInfo = infos[Math.floor(Math.random() * infos.length)];
-    document.getElementById('info-text').innerText = randomInfo;
-};
-
-// تأثير تحريك الأرقام
-function animateNumber(element, start, end, duration) {
-    let range = end - start;
-    let current = start;
-    let increment = range / (duration / 20);
-    let timer = setInterval(function() {
-        current += increment;
-        element.innerText = Math.floor(current);
-        if ((increment > 0 && current >= end) || (increment < 0 && current <= end)) {
-            element.innerText = end;
-            clearInterval(timer);
-        }
-    }, 20);
-}
-
-// حساب الكميات
-function calculate() {
-    const volume = parseFloat(document.getElementById('volume').value);
-    if (isNaN(volume)) {
-        alert("الرجاء إدخال رقم صحيح لحجم القالب.");
-        return;
+  <script>
+    function convertArabicToEnglish(str) {
+      const arabic = ['٠','١','٢','٣','٤','٥','٦','٧','٨','٩'];
+      const english = ['0','1','2','3','4','5','6','7','8','9'];
+      return str.replace(/[٠-٩]/g, d => english[arabic.indexOf(d)]);
     }
-    document.getElementById('clickSound').play();
 
-    const ratio = volume / 300;
-    const gypsum = Math.round(280 * ratio);
-    const cement = Math.round(26 * ratio);
-    const water = Math.round(244 * ratio);
-    const total = gypsum + cement + water;
+    function toArabicNumber(str) {
+      const arabicNums = ['٠','١','٢','٣','٤','٥','٦','٧','٨','٩'];
+      return str.toString().replace(/\d/g, d => arabicNums[d]);
+    }
 
-    document.getElementById('results').style.display = 'block';
-    document.getElementById('total').style.display = 'block';
+    function calculate() {
+      let input = document.getElementById("volume").value.trim();
+      input = convertArabicToEnglish(input);
+      const volume = parseFloat(input);
 
-    animateNumber(document.getElementById('gypsum'), 0, gypsum, 1000);
-    animateNumber(document.getElementById('cement'), 0, cement, 1000);
-    animateNumber(document.getElementById('water'), 0, water, 1000);
-    animateNumber(document.getElementById('sum'), 0, total, 1000);
-}
+      if (isNaN(volume) || volume <= 0) {
+        alert("يرجى إدخال حجم صالح");
+        return;
+      }
 
-// إعادة التعيين
-function resetForm() {
-    document.getElementById('volume').value = '';
-    document.getElementById('results').style.display = 'none';
-    document.getElementById('total').style.display = 'none';
-    document.getElementById('clickSound').play();
-}
-</script>
+      const gypsum = +(volume * 0.9333).toFixed(0);
+      const cement = +(volume * 0.0867).toFixed(0);
+      const water = +(volume * 0.8133).toFixed(0);
+      const total = gypsum + cement + water;
+
+      document.getElementById("result").innerHTML = `
+        الجبس: ${toArabicNumber(gypsum)} جرام<br>
+        الإسمنت: ${toArabicNumber(cement)} جرام<br>
+        الماء: ${toArabicNumber(water)} جرام<br>
+        ------------------<br>
+        المجموع: ${toArabicNumber(total)} جرام
+      `;
+    }
+
+    function reset() {
+      document.getElementById("volume").value = "";
+      document.getElementById("result").innerHTML = "";
+    }
+
+    const ad3eya = [
+      "اللهم ارزقنا حلاوة ذكرك وشكرك وحسن عبادتك",
+      "اللهم اجعل عملي خالصًا لوجهك الكريم",
+      "اللهم بارك لي في وقتي وجهدي",
+      "اللهم اجعل هذا العمل صدقة جارية لي"
+    ];
+
+    const tips = [
+      "تأكد من نقاء الماء المستخدم لتحسين جودة الخلطة.",
+      "يفضل استخدام ميزان رقمي لوزن المكونات بدقة.",
+      "احرص على تقليب الخلطة جيدًا قبل الصب.",
+      "احفظ المكونات في مكان جاف بعيد عن الرطوبة."
+    ];
+
+    document.getElementById("dua").textContent = ad3eya[Math.floor(Math.random() * ad3eya.length)];
+    document.getElementById("tip").textContent = tips[Math.floor(Math.random() * tips.length)];
+  </script>
 
 </body>
 </html>
